@@ -17,7 +17,7 @@ if(isset($_GET['page'])) {
             break;
         case 'data_user':
             if($_SESSION['role'] == 'Admin') {
-                include 'pages/user/data_user.php';
+                include 'pages/admin/pages/data_users.php';
             } else {
                 include 'pages/error/401.php';
             }

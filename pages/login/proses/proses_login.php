@@ -21,6 +21,6 @@ if ($row) {
     echo "<script>window.location.href='../../../index.php'</script>";
 } else {
     echo "<script>alert('Masukkan data email dan password dengan benar!')</script>";
-    echo "<script>window.location.href='../login.php'</script>";
+    echo "<script>window.location.href='../pages/login.php'</script>";
 }
 ?>
