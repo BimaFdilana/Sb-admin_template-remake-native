@@ -1,5 +1,5 @@
 <?php
-include("../../conf/db_conn.php");
+include("../../../conf/db_conn.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $id = $_GET['id'];
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     } else {
         echo "<script>alert('Gagal menghapus, data tidak ditemukan.');</script>";
     }
-    echo "<script>window.location = '../../index.php?page=data_user';</script>";
+    echo "<script>window.location = '../../../index.php?page=data_user';</script>";
 }
 ?>
 

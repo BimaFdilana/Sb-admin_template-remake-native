@@ -1,12 +1,12 @@
 <?php
-include_once('../../conf/db_conn.php');
+include_once('../../../conf/db_conn.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $no_hp = $_POST['no_hp'];
     $password = $_POST['password'];
-    $role = 'User';
+    $role = 'Admin';
     $password = md5($password);
 
     $query = "INSERT INTO tb_user SET
@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result) {
         echo "<script>alert('Berhasil menambahkan data $username!');</script>";
-        echo "<script>window.location = '../../index.php?page=data_user';</script>";
+        echo "<script>window.location = '../../../index.php?page=tambah_user';</script>";
     } else {
         echo "<script>alert('Gagal menambahkan data $username, coba cek isian anda!');</script>";
-        echo "<script>window.location = '../../index.php?page=tambah_user';</script>";
+        echo "<script>window.location = '../index.php?page=tambah_user';</script>";
     }
 }
 ?>

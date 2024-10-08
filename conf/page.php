@@ -17,21 +17,21 @@ if(isset($_GET['page'])) {
             break;
         case 'data_user':
             if($_SESSION['role'] == 'Admin') {
-                include 'pages/user/data_user.php';
+                include 'pages/admin/pages/data_users.php';
             } else {
                 include 'pages/error/401.php';
             }
             break;
         case 'tambah_user':
             if($_SESSION['role'] == 'Admin') {
-                include 'pages/user/tambah_user.php';
+                include 'pages/admin/pages/tambah_user.php';
             } else {
                 include 'pages/error/401.php';
             }
             break;
         case 'ubah_user':
             if($_SESSION['role'] == 'Admin') {
-                include 'pages/user/ubah_user.php';
+                include 'pages/admin/pages/ubah_user.php';
             } else {
                 include 'pages/error/401.php';
             }

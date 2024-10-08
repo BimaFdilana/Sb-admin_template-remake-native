@@ -3,7 +3,7 @@ session_start();
 
 if (!isset($_SESSION['email'])) {
     echo '<script>alert("Anda harus login terlebih dahulu!");';
-    echo 'window.location.href="pages/user/login.php"</script>';
+    echo 'window.location.href="pages/login/pages/login.php"</script>';
 } else {
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -14,22 +14,40 @@ if (strpos($request_uri, '&') !== false) {
     $request_uri = substr($request_uri, 0, strpos($request_uri, '&'));
 }
 
-$adder = '/project/';
-$beranda = array($adder, $adder . 'index.php', $adder . 'index.php?page=beranda');
+$adder = '/undangan-web/';
 
-$kab_kota_active = array(
-    $adder . 'index.php?page=data_kabkota',
-    $adder . 'index.php?page=tambah_kabkota',
-    $adder . 'index.php?page=ubah_kabkota'
+$beranda = array(
+    $adder, $adder . 'index.php', 
+    $adder . 'index.php?page=beranda'
+);
+
+$listUndangan_active = array(
+    $adder . 'index.php?page=listUndangan',
+);
+
+$tambahUndangan_active = array(
+    $adder . 'index.php?page=tambahUndangan',
+);
+
+$listPesanan_active = array(
+    $adder . 'index.php?page=listPesanan',
+);
+
+$whatsappNumber_active = array(
+    $adder . 'index.php?page=whatsappNumber',
 );
 
 $user_active = array(
     $adder . 'index.php?page=data_user',
-    $adder . 'index.php?page=tambah_user',
     $adder . 'index.php?page=ubah_user'
 );
 
-$kelola_data = array_merge($kab_kota_active, $user_active);
+$register_active = array(
+    $adder . 'index.php?page=tambah_user',
+);
+
+$kelola_data = array_merge($user_active, $register_active);
+$kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambahUndangan_active, $whatsappNumber_active);
 ?>
 
 <!DOCTYPE html>
@@ -74,8 +92,8 @@ $kelola_data = array_merge($kab_kota_active, $user_active);
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item <?= (in_array($request_uri, $beranda) ? 'active':'');?>">
+                <a href="index.php?page=beranda" class="nav-link ">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Beranda</span></a>
             </li>
@@ -89,7 +107,8 @@ $kelola_data = array_merge($kab_kota_active, $user_active);
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+             <?php if ($_SESSION['role'] == 'Admin') {?>
+                <li class="nav-item <?= (in_array($request_uri, $kelola_data) ? 'active':'');?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
                     aria-expanded="true" aria-controls="collapseAdmin">
                     <i class="fas fa-fw fa-user"></i>
@@ -98,13 +117,15 @@ $kelola_data = array_merge($kab_kota_active, $user_active);
                 <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Admin Setting :</h6>
-                        <a class="collapse-item" href="#">Account</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $user_active) ? 'active':'');?>" href="index.php?page=data_user">List Account</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $register_active) ? 'active':'');?>" href="index.php?page=tambah_user">Register Account</a>
                     </div>
                 </div>
             </li>
-
+            <?php } ?>
+            
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item <?= (in_array($request_uri, $kelola_product) ? 'active':'');?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct"
                     aria-expanded="true" aria-controls="collapseProduct">
                     <i class="fas fa-fw fa-folder"></i>
@@ -113,10 +134,10 @@ $kelola_data = array_merge($kab_kota_active, $user_active);
                 <div id="collapseProduct" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Product List :</h6>
-                        <a class="collapse-item" href="#">Buttons</a>
-                        <a class="collapse-item" href="#">Buttons2</a>
-                        <a class="collapse-item" href="#">Buttons3</a>
-                        <a class="collapse-item" href="#">Buttons4</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $listUndangan_active) ? 'active':'');?>" href="index.php?page=listUndangan">List Undangan</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $tambahUndangan_active) ? 'active':'');?>" href="index.php?page=tambahUndangan">Tambah Undagan</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $listPesanan_active) ? 'active':'');?>" href="index.php?page=listPesanan">List Pesanan</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $whatsappNumber_active) ? 'active':'');?>" href="index.php?page=whatsappNumber">WhatsApp Number</a>
                     </div>
                 </div>
             </li>
@@ -131,13 +152,13 @@ $kelola_data = array_merge($kab_kota_active, $user_active);
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+            
             <!-- Main Content -->
             <div id="content">
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
+                    
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggle" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
@@ -196,57 +217,7 @@ $kelola_data = array_merge($kab_kota_active, $user_active);
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.container-fluid -->
-
+                <?php include "conf/page.php"; ?>
             </div>
             <!-- End of Main Content -->
 
@@ -285,7 +256,7 @@ $kelola_data = array_merge($kab_kota_active, $user_active);
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="pages/login/proses/proses_logout.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -307,7 +278,6 @@ $kelola_data = array_merge($kab_kota_active, $user_active);
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
-
 </body>
 
 </html>
