@@ -20,7 +20,7 @@ $row = mysqli_fetch_array($result);
           <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Edit Account</h6>
           </div>
-          <form id="tambahUser" method="post" action="pages/admin/proses/proses_ubah_user.php">
+          <form method="post" action="pages/admin/proses/proses_ubah_user.php">
             <input type="hidden" value="<?=$row['id']?>" name="id">
             <div class="card-body">
               <div class="form-group">
@@ -37,11 +37,11 @@ $row = mysqli_fetch_array($result);
               </div>
               <div class="form-group">
                 <label for="password">Kata Sandi</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="Masukan kata sandi...">
+                <input type="password" name="password" class="form-control" id="password" placeholder="Masukan kata sandi..." disabled>
               </div>
               <div class="form-group">
                 <label for="retype_password">Ulangi Kata Sandi</label>
-                <input type="password" name="retype_password" class="form-control" id="retype_password" placeholder="Ketik ulang kata sandi...">
+                <input type="password" name="retype_password" class="form-control" id="retype_password" placeholder="Ketik ulang kata sandi..." disabled>
               </div>
               <div class="form-group mb-0">
                 <div class="custom-control custom-checkbox">

@@ -1,5 +1,5 @@
 <?php
-include("../../../conf/db_conn.php");
+include_once("../../../conf/db_conn.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $query = "UPDATE tb_user SET
                   username = '$username',
-                  email = '$email',
-                  no_hp = '$no_hp'
+                  email = '$email'
+                  no_hp = '$no_hp',
                   WHERE id='$id'";
     }
 

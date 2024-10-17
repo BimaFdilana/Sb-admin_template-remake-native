@@ -11,7 +11,7 @@
           <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Register Account</h6>
           </div>
-          <form id="tambahUser" method="post" action="pages/admin/proses/proses_tambah_user.php">
+          <form method="post" action="pages/admin/proses/proses_tambah_user.php">
             <div class="card-body">
               <div class="form-group">
                 <label for="username">Nama Pengguna</label>

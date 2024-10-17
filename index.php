@@ -278,6 +278,23 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
+
+    <script>
+        document.getElementById('gambar_undangan').addEventListener('change', function(e) {
+            var fileInput = e.target;
+            var label = fileInput.nextElementSibling;
+            var fileNames = [];  // Array untuk menyimpan semua nama file
+
+            // Loop untuk mendapatkan semua nama file yang dipilih
+            for (var i = 0; i < fileInput.files.length; i++) {
+                fileNames.push(fileInput.files[i].name);
+            }
+
+            // Gabungkan nama file dengan koma sebagai pemisah dan tampilkan di label
+            label.textContent = fileNames.join(', ');
+        });
+    </script>
+
 </body>
 
 </html>

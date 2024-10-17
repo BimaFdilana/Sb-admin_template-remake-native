@@ -6,14 +6,17 @@ if(isset($_GET['page'])) {
         case 'beranda':
             include 'pages/beranda.php';
             break;
-        case 'data_kabkota':
-            include 'pages/kabkota/data_kabkota.php';
+        case 'tambahUndangan':
+            include 'pages/products/undangan/pages/tambah_undangan.php';
             break;
-        case 'tambah_kabkota':
-            include 'pages/kabkota/tambah_kabkota.php';
+        case 'listUndangan':
+            include 'pages/products/undangan/pages/list_data_undangan.php';
             break;
-        case 'ubah_kabkota':
-            include 'pages/kabkota/ubah_kabkota.php';
+        case 'listPesanan':
+            include 'pages/products/undangan/pages/tambah_undangan.php';
+            break;
+        case 'whatsappNumber';
+            include 'pages/products/undangan/pages/tambah_undangan.php';
             break;
         case 'data_user':
             if($_SESSION['role'] == 'Admin') {

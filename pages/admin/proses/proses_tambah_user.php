@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result) {
         echo "<script>alert('Berhasil menambahkan data $username!');</script>";
-        echo "<script>window.location = '../../../index.php?page=tambah_user';</script>";
+        echo "<script>window.location = '../../../index.php?page=data_user';</script>";
     } else {
         echo "<script>alert('Gagal menambahkan data $username, coba cek isian anda!');</script>";
         echo "<script>window.location = '../index.php?page=tambah_user';</script>";
