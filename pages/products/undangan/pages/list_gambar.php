@@ -46,12 +46,8 @@ $list_gambar = mysqli_query($conn, $query);
                                 ?>
                             </td>
                             <td style="text-align: center; white-space: nowrap;">
-                                <!-- Edit User -->
-                                <a href="index.php?page=ubah_user&id=<?=$row['id'];?>" class="btn btn-success btn-sm" role="button" title="Ubah Data User">
-                                    <i class="fas fa-edit"></i>
-                                </a>
                                 <!-- Delete User -->
-                                <a href="pages/admin/proses/proses_hapus_user.php?id=<?=$row['id'];?>" class="btn btn-danger btn-sm" role="button" title="Hapus Data User" onclick="return confirm('Apakah anda yakin?')">
+                                <a href="pages/products/undangan/proses/proses_hapus_gambar.php?id_image=<?=$row['id_image'];?>" class="btn btn-danger btn-sm" role="button" title="Hapus Gambar" onclick="return confirm('Apakah anda yakin?')">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>

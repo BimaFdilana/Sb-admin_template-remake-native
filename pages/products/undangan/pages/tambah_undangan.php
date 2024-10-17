@@ -60,7 +60,7 @@ $daftar_image = mysqli_query($conn, $query_image);
                     <select name="id_image" class="form-control" id="id_image">
                     <option value="">Pilih Gambar...</option>
                     <?php while($row = mysqli_fetch_assoc($daftar_image)): ?>
-                        <option value="<?= $row['id']; ?>"><?= $row['nama_image']; ?></option>
+                        <option value="<?= $row['id_image']; ?>"><?= $row['nama_image']; ?></option>
                     <?php endwhile; ?>
                     </select>
                 </div>

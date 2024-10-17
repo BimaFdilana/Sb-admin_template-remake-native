@@ -94,7 +94,6 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
             <!-- Nav Item - Dashboard -->
             <li class="nav-item <?= (in_array($request_uri, $beranda) ? 'active':'');?>">
                 <a href="index.php?page=beranda" class="nav-link ">
@@ -140,8 +139,8 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
                         <h6 class="collapse-header">Product List :</h6>
                         <a class="collapse-item <?= (in_array($request_uri, $listUndangan_active) ? 'active':'');?>" href="index.php?page=listUndangan">List Undangan</a>
                         <a class="collapse-item <?= (in_array($request_uri, $tambahUndangan_active) ? 'active':'');?>" href="index.php?page=tambahUndangan">Tambah Undangan</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $tambahGambar_active) ? 'active':'');?>" href="index.php?page=tambahGambar">Tambah Gambar</a> 
                         <a class="collapse-item <?= (in_array($request_uri, $listGambar_active) ? 'active':'');?>" href="index.php?page=listGambar">List Gambar</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $tambahGambar_active) ? 'active':'');?>" href="index.php?page=tambahGambar">Tambah Gambar</a> 
                         <a class="collapse-item <?= (in_array($request_uri, $listPesanan_active) ? 'active':'');?>" href="index.php?page=listPesanan">Pesanan Pembelian</a>
                     </div>
                 </div>

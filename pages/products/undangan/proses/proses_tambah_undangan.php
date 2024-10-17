@@ -1,5 +1,5 @@
 <?php
-include_once('../../../../conf/db_conn.php');
+include "../../../../conf/db_conn.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama_undangan = $_POST['nama_undangan'];
@@ -22,10 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        echo "<script>alert('Berhasil menambahkan data $nama_undangan!');</script>";
+        echo "<script>alert('Berhasil menambahkan data Ruangan!');</script>";
         echo "<script>window.location = '../../../../index.php?page=listUndangan';</script>";
     } else {
-        echo "<script>alert('Gagal menambahkan data $nama_undangan, coba cek isian anda!');</script>";
+        echo "<script>alert('Gagal menambahkan data Ruangan, coba cek isian anda!');</script>";
         echo "<script>window.location = '../../../../index.php?page=tambahUndangan';</script>";
     }
 }
