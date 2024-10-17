@@ -6,18 +6,28 @@ if(isset($_GET['page'])) {
         case 'beranda':
             include 'pages/beranda.php';
             break;
+            // Undangan Product
         case 'tambahUndangan':
             include 'pages/products/undangan/pages/tambah_undangan.php';
             break;
         case 'listUndangan':
             include 'pages/products/undangan/pages/list_data_undangan.php';
             break;
+            // Pesanan
+        case 'tambahPesanan':
+            include 'pages/products/undangan/pages/tambah_pesanan.php';
+            break;
         case 'listPesanan':
-            include 'pages/products/undangan/pages/tambah_undangan.php';
+            include 'pages/products/undangan/pages/list_pesanan.php';
             break;
-        case 'whatsappNumber';
-            include 'pages/products/undangan/pages/tambah_undangan.php';
+            // Gambar
+        case 'tambahGambar';
+            include 'pages/products/undangan/pages/tambah_gambar.php';
             break;
+        case 'listGambar';
+            include 'pages/products/undangan/pages/list_gambar.php';
+            break;
+            // User Admin
         case 'data_user':
             if($_SESSION['role'] == 'Admin') {
                 include 'pages/admin/pages/data_users.php';

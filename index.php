@@ -33,8 +33,12 @@ $listPesanan_active = array(
     $adder . 'index.php?page=listPesanan',
 );
 
-$whatsappNumber_active = array(
-    $adder . 'index.php?page=whatsappNumber',
+$tambahGambar_active = array(
+    $adder . 'index.php?page=tambahGambar',
+);
+
+$listGambar_active = array(
+    $adder . 'index.php?page=listGambar',
 );
 
 $user_active = array(
@@ -47,7 +51,7 @@ $register_active = array(
 );
 
 $kelola_data = array_merge($user_active, $register_active);
-$kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambahUndangan_active, $whatsappNumber_active);
+$kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambahUndangan_active, $tambahGambar_active, $listGambar_active);
 ?>
 
 <!DOCTYPE html>
@@ -135,9 +139,10 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Product List :</h6>
                         <a class="collapse-item <?= (in_array($request_uri, $listUndangan_active) ? 'active':'');?>" href="index.php?page=listUndangan">List Undangan</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $tambahUndangan_active) ? 'active':'');?>" href="index.php?page=tambahUndangan">Tambah Undagan</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $listPesanan_active) ? 'active':'');?>" href="index.php?page=listPesanan">List Pesanan</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $whatsappNumber_active) ? 'active':'');?>" href="index.php?page=whatsappNumber">WhatsApp Number</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $tambahUndangan_active) ? 'active':'');?>" href="index.php?page=tambahUndangan">Tambah Undangan</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $tambahGambar_active) ? 'active':'');?>" href="index.php?page=tambahGambar">Tambah Gambar</a> 
+                        <a class="collapse-item <?= (in_array($request_uri, $listGambar_active) ? 'active':'');?>" href="index.php?page=listGambar">List Gambar</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $listPesanan_active) ? 'active':'');?>" href="index.php?page=listPesanan">Pesanan Pembelian</a>
                     </div>
                 </div>
             </li>
@@ -278,22 +283,6 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
-
-    <script>
-        document.getElementById('gambar_undangan').addEventListener('change', function(e) {
-            var fileInput = e.target;
-            var label = fileInput.nextElementSibling;
-            var fileNames = [];  // Array untuk menyimpan semua nama file
-
-            // Loop untuk mendapatkan semua nama file yang dipilih
-            for (var i = 0; i < fileInput.files.length; i++) {
-                fileNames.push(fileInput.files[i].name);
-            }
-
-            // Gabungkan nama file dengan koma sebagai pemisah dan tampilkan di label
-            label.textContent = fileNames.join(', ');
-        });
-    </script>
 
 </body>
 
