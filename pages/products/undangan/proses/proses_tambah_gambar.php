@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result != "OK") {
         echo "<script>alert('$result');</script>";
-        echo "<script>window.location = '../../../../index.php?page=tambahGambar';</script>";
+        echo "<script>window.location = '../../../../index_admin.php?page=tambahGambar';</script>";
     } else {
         $query = "INSERT INTO tb_image SET
                   nama_image = '$nama_image',
@@ -64,10 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result) {
             echo "<script>alert('Berhasil menambahkan data Ruangan!');</script>";
-            echo "<script>window.location = '../../../../index.php?page=listGambar';</script>";
+            echo "<script>window.location = '../../../../index_admin.php?page=listGambar';</script>";
         } else {
             echo "<script>alert('Gagal menambahkan data Ruangan, coba cek isian anda!');</script>";
-            echo "<script>window.location = '../../../../index.php?page=tambahGambar';</script>";
+            echo "<script>window.location = '../../../../index_admin.php?page=tambahGambar';</script>";
         }
     }
 }

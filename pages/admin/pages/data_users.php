@@ -42,7 +42,7 @@ $daftar_user = mysqli_query($conn, $query);
                             <td><?=$row['role'];?></td>
                             <td style="text-align: center; white-space: nowrap;">
                                 <!-- Edit User -->
-                                <a href="index.php?page=ubah_user&id=<?=$row['id'];?>" class="btn btn-success btn-sm" role="button" title="Ubah Data User">
+                                <a href="index_admin.php?page=ubah_user&id=<?=$row['id'];?>" class="btn btn-success btn-sm" role="button" title="Ubah Data User">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <!-- Delete User -->

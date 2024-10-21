@@ -18,7 +18,7 @@ if ($row) {
     $_SESSION['role'] = $row['role'];
 
     echo "<script>alert('Selamat datang, " . $row['username'] . ", kamu telah berhasil login!')</script>";
-    echo "<script>window.location.href='../../../index.php'</script>";
+    echo "<script>window.location.href='../../../index_admin.php'</script>";
 } else {
     echo "<script>alert('Masukkan data email dan password dengan benar!')</script>";
     echo "<script>window.location.href='../pages/login.php'</script>";

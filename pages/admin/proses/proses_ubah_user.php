@@ -29,10 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result) {
         echo "<script>alert('Berhasil mengubah data $username!');</script>";
-        echo "<script>window.location = '../../../index.php?page=data_user';</script>";
+        echo "<script>window.location = '../../../index_admin.php?page=data_user';</script>";
     } else {
         echo "<script>alert('Gagal mengubah data $username, coba cek isian anda!');</script>";
-        echo "<script>window.location = '../../../index.php?page=ubah_user&id=$id';</script>";
+        echo "<script>window.location = '../../../index_admin.php?page=ubah_user&id=$id';</script>";
     }
 }
 ?>

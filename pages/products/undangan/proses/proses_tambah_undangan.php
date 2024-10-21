@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result) {
         echo "<script>alert('Berhasil menambahkan data Ruangan!');</script>";
-        echo "<script>window.location = '../../../../index.php?page=listUndangan';</script>";
+        echo "<script>window.location = '../../../../index_admin.php?page=listUndangan';</script>";
     } else {
         echo "<script>alert('Gagal menambahkan data Ruangan, coba cek isian anda!');</script>";
-        echo "<script>window.location = '../../../../index.php?page=tambahUndangan';</script>";
+        echo "<script>window.location = '../../../../index_admin.php?page=tambahUndangan';</script>";
     }
 }
 ?>

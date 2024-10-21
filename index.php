@@ -1,290 +1,407 @@
 <?php
 session_start();
-
-if (!isset($_SESSION['email'])) {
-    echo '<script>alert("Anda harus login terlebih dahulu!");';
-    echo 'window.location.href="pages/login/pages/login.php"</script>';
-} else {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-$request_uri = $_SERVER['REQUEST_URI'];
-
-if (strpos($request_uri, '&') !== false) {
-    $request_uri = substr($request_uri, 0, strpos($request_uri, '&'));
-}
-
-$adder = '/undangan-web/';
-
-$beranda = array(
-    $adder, $adder . 'index.php', 
-    $adder . 'index.php?page=beranda'
-);
-
-$listUndangan_active = array(
-    $adder . 'index.php?page=listUndangan',
-);
-
-$tambahUndangan_active = array(
-    $adder . 'index.php?page=tambahUndangan',
-);
-
-$listPesanan_active = array(
-    $adder . 'index.php?page=listPesanan',
-);
-
-$tambahGambar_active = array(
-    $adder . 'index.php?page=tambahGambar',
-);
-
-$listGambar_active = array(
-    $adder . 'index.php?page=listGambar',
-);
-
-$user_active = array(
-    $adder . 'index.php?page=data_user',
-    $adder . 'index.php?page=ubah_user'
-);
-
-$register_active = array(
-    $adder . 'index.php?page=tambah_user',
-);
-
-$kelola_data = array_merge($user_active, $register_active);
-$kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambahUndangan_active, $tambahGambar_active, $listGambar_active);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Dashboard-Admin</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <title>Web Design Mastery | Raido.</title>
+  </head>
+  <body>
+    <header id="home">
+      <nav>
+        <div class="nav__bar">
+          <div class="nav__logo"><a href="#">Baleekun Digital</a></div>
+          <ul class="nav__links">
+            <li class="link"><a href="#home">Beranda</a></li>
+            <li class="link"><a href="#about">Gallery</a></li>
+            <li class="link"><a href="#discover">Product</a></li>
+            <li class="link"><a href="#blog">Order</a></li>
+            <li class="link"><a href="#blog">About Us</a></li>
 
-    <!-- Custom styles for this template-->
-    <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
-
-</head>
-
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= (in_array($request_uri, $beranda) ? 'active':'');?>">
-                <a href="index.php?page=beranda" class="nav-link ">
-                    <i class="fas fa-fw fa-home"></i>
-                    <span>Beranda</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- start button masuk -->
              <?php if ($_SESSION['role'] == 'Admin') {?>
-                <li class="nav-item <?= (in_array($request_uri, $kelola_data) ? 'active':'');?>">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
-                    aria-expanded="true" aria-controls="collapseAdmin">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Admin</span>
-                </a>
-                <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Admin Setting :</h6>
-                        <a class="collapse-item <?= (in_array($request_uri, $user_active) ? 'active':'');?>" href="index.php?page=data_user">List Account</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $register_active) ? 'active':'');?>" href="index.php?page=tambah_user">Register Account</a>
-                    </div>
-                </div>
-            </li>
+            <a href="index_admin.php">
+                <button class="btn">
+                  Login <i class="ri-arrow-right-line"></i>
+                </button>
+            </a>
+            <!-- end button masuk -->
             <?php } ?>
-            
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item <?= (in_array($request_uri, $kelola_product) ? 'active':'');?>">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct"
-                    aria-expanded="true" aria-controls="collapseProduct">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Product</span>
-                </a>
-                <div id="collapseProduct" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Product List :</h6>
-                        <a class="collapse-item <?= (in_array($request_uri, $listUndangan_active) ? 'active':'');?>" href="index.php?page=listUndangan">List Undangan</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $tambahUndangan_active) ? 'active':'');?>" href="index.php?page=tambahUndangan">Tambah Undangan</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $listGambar_active) ? 'active':'');?>" href="index.php?page=listGambar">List Gambar</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $tambahGambar_active) ? 'active':'');?>" href="index.php?page=tambahGambar">Tambah Gambar</a> 
-                        <a class="collapse-item <?= (in_array($request_uri, $listPesanan_active) ? 'active':'');?>" href="index.php?page=listPesanan">Pesanan Pembelian</a>
-                    </div>
-                </div>
-            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="section__container header__container">
+        <h1>The new way to plan your next adventure</h1>
+        <h4>Explore the colourful world</h4>
+        <button class="btn">
+          Explore More <i class="ri-arrow-right-line"></i>
+        </button>
+      </div>
+    </header>
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    <section class="about" id="about">
+      <div class="section__container about__container">
+        <div class="about__content">
+          <h2 class="section__header">About us</h2>
+          <p class="section__subheader">
+            Our mission is to ignite the spirit of discovery in every traveler's
+            heart, offering meticulously crafted itineraries that blend
+            adrenaline-pumping activities with awe-inspiring landscapes. With a
+            team of seasoned globetrotters, we ensure that every expedition is
+            infused with excitement, grace our planet. Embark on a voyage of a
+            lifetime with us, as we redefine the art of exploration.
+          </p>
+          <div class="about__flex">
+            <div class="about__card">
+              <h4>268</h4>
+              <p>Completed Trips</p>
             </div>
+            <div class="about__card">
+              <h4>176</h4>
+              <p>Tour Guides</p>
+            </div>
+            <div class="about__card">
+              <h4>153</h4>
+              <p>Destinations</p>
+            </div>
+          </div>
+          <button class="btn">
+            Read More <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+        <div class="about__image">
+          <img src="assets/about.jpg" alt="about" />
+        </div>
+      </div>
+    </section>
 
+    <section class="discover" id="discover">
+      <div class="section__container discover__container">
+        <h2 class="section__header">Discover the most engaging places</h2>
+        <p class="section__subheader">
+          Let's see the world with us with you and your family.
+        </p>
+        <div class="discover__grid">
+          <div class="discover__card">
+            <div class="discover__image">
+              <img src="assets/discover-1.jpg" alt="discover" />
+            </div>
+            <div class="discover__card__content">
+              <h4>Norway</h4>
+              <p>
+                Discover the untamed beauty of Norway, a land where rugged
+                mountains, and enchanting northern lights paint a surreal
+                backdrop.
+              </p>
+              <button class="discover__btn">
+                Discover More <i class="ri-arrow-right-line"></i>
+              </button>
+            </div>
+          </div>
+          <div class="discover__card">
+            <div class="discover__image">
+              <img src="assets/discover-2.jpg" alt="discover" />
+            </div>
+            <div class="discover__card__content">
+              <h4>London</h4>
+              <p>
+                From urban rock climbing to twilight cycling through royal
+                parks, London beckons adventure enthusiasts to embrace
+                opportunities.
+              </p>
+              <button class="discover__btn">
+                Discover More <i class="ri-arrow-right-line"></i>
+              </button>
+            </div>
+          </div>
+          <div class="discover__card">
+            <div class="discover__image">
+              <img src="assets/discover-3.jpg" alt="discover" />
+            </div>
+            <div class="discover__card__content">
+              <h4>Japan</h4>
+              <p>
+                From scaling the iconic peaks of Mount Fuji to immersing in the
+                serenity, Japan offers adventurers a captivating cultural
+                treasures.
+              </p>
+              <button class="discover__btn">
+                Discover More <i class="ri-arrow-right-line"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blogs" id="blog">
+      <div class="blogs__container">
+        <h2 class="section__header">Latest on the blogs</h2>
+        <p class="section__subheader">We want to help youto travel better!</p>
+        <div class="blogs__grid">
+          <div class="blogs__card">
+            <img src="assets/blog-1.jpg" alt="blog" />
+            <div class="blogs__content">
+              10 mistakes every first time traveller will make and how to avoid
+              them!
+            </div>
+          </div>
+          <div class="blogs__card">
+            <img src="assets/blog-2.jpg" alt="blog" />
+            <div class="blogs__content">
+              What's it really like to move to a country where you don't speak
+              the language?
+            </div>
+          </div>
+          <div class="blogs__card">
+            <img src="assets/blog-3.jpg" alt="blog" />
+            <div class="blogs__content">
+              Exploring the quite corners of Oslo | Gallop around the globe.
+            </div>
+          </div>
+          <div class="blogs__card">
+            <img src="assets/blog-4.jpg" alt="blog" />
+            <div class="blogs__content">
+              11 things to know before you visit rainbow mountain in Peru.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="journals" id="journals">
+      <div class="section__container journals__container">
+        <h2 class="section__header">The travel journals</h2>
+        <p class="section__subheader">
+          A journal is a place to record new things you have discovered while
+          exploring various places you visit.
+        </p>
+        <div class="journals__grid">
+          <div class="journals__card">
+            <img src="assets/journals-1.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/author-1.jpg" alt="author" />
+                <p>By Marry Ann</p>
+              </div>
+              <h4>How to use less plastic when you travel.</h4>
+              <div class="journals__footer">
+                <p>18 Apr 2022</p>
+                <span>
+                  <a href="#"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="journals__card">
+            <img src="assets/journals-2.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/author-2.jpg" alt="author" />
+                <p>By Austin Martin</p>
+              </div>
+              <h4>The best weekend road trips from Denver.</h4>
+              <div class="journals__footer">
+                <p>22 Jun 2022</p>
+                <span>
+                  <a href="#"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="journals__card">
+            <img src="assets/journals-3.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/author-3.jpg" alt="author" />
+                <p>By Anina Joseph</p>
+              </div>
+              <h4>Tips and tricks to plan your next adventure.</h4>
+              <div class="journals__footer">
+                <p>05 Sep 2022</p>
+                <span>
+                  <a href="#"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="journals__card">
+            <img src="assets/journals-4.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/author-4.jpg" alt="author" />
+                <p>By Jacob Fernandez</p>
+              </div>
+              <h4>A beginner's guide to hostel's.</h4>
+              <div class="journals__footer">
+                <p>14 Dec 2022</p>
+                <span>
+                  <a href="#"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="journals__card">
+            <img src="assets/journals-5.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/author-5.jpg" alt="author" />
+                <p>By John Smith</p>
+              </div>
+              <h4>17 unconventional travel hacks you need.</h4>
+              <div class="journals__footer">
+                <p>10 Feb 2022</p>
+                <span>
+                  <a href="#"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="journals__card">
+            <img src="assets/journals-6.jpg" alt="journal" />
+            <div class="journals__content">
+              <div class="journals__author">
+                <img src="assets/author-6.jpg" alt="author" />
+                <p>By Aaran Kennedy</p>
+              </div>
+              <h4>Travel tip's you'll wish you'd known sooner.</h4>
+              <div class="journals__footer">
+                <p>20 Mar 2023</p>
+                <span>
+                  <a href="#"><i class="ri-share-fill"></i></a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="journals__btn">
+          <button class="btn">
+            View All Journals <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero">
+      <div class="section__container hero__container">
+        <p>Raido.</p>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+      <div class="gallery__container">
+        <h2 class="section__header">Gallery photos</h2>
+        <p class="section__subheader">
+          Explore the most beautiful places in the world.
+        </p>
+        <div class="gallery__grid">
+          <div class="gallery__card">
+            <img src="assets/gallery-1.jpg" alt="gallery" />
+            <div class="gallery__content">
+              <h4>Northern Lights</h4>
+              <p>Norway</p>
+            </div>
+          </div>
+          <div class="gallery__card">
+            <img src="assets/gallery-2.jpg" alt="gallery" />
+            <div class="gallery__content">
+              <h4>Krabi</h4>
+              <p>Thailand</p>
+            </div>
+          </div>
+          <div class="gallery__card">
+            <img src="assets/gallery-3.jpg" alt="gallery" />
+            <div class="gallery__content">
+              <h4>Bali</h4>
+              <p>Indonesia</p>
+            </div>
+          </div>
+          <div class="gallery__card">
+            <img src="assets/gallery-4.jpg" alt="gallery" />
+            <div class="gallery__content">
+              <h4>Tokyo</h4>
+              <p>Japan</p>
+            </div>
+          </div>
+          <div class="gallery__card">
+            <img src="assets/gallery-5.jpg" alt="gallery" />
+            <div class="gallery__content">
+              <h4>Taj Mahal</h4>
+              <p>India</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="section__container contact__container">
+        <div class="contact__col">
+          <h4>Contact a travel researcher</h4>
+          <p>We always aim to reply within 24 hours.</p>
+        </div>
+        <div class="contact__col">
+          <div class="contact__card">
+            <span><i class="ri-phone-line"></i></span>
+            <h4>Call us</h4>
+            <h5>+91 9876543210</h5>
+            <p>We are online now</p>
+          </div>
+        </div>
+        <div class="contact__col">
+          <div class="contact__card">
+            <span><i class="ri-mail-line"></i></span>
+            <h4>Send us an enquiry</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div class="section__container footer__container">
+        <h4>Raido.</h4>
+        <div class="footer__socials">
+          <span>
+            <a href="#"><i class="ri-facebook-fill"></i></a>
+          </span>
+          <span>
+            <a href="#"><i class="ri-instagram-fill"></i></a>
+          </span>
+          <span>
+            <a href="#"><i class="ri-twitter-fill"></i></a>
+          </span>
+          <span>
+            <a href="#"><i class="ri-linkedin-fill"></i></a>
+          </span>
+        </div>
+        <p>
+          Cheap Romantic Vacations. Many people feel that there is a limited
+          amount of abundance, wealth, or chance to succeed in life.
+        </p>
+        <ul class="footer__nav">
+          <li class="footer__link"><a href="#home">Home</a></li>
+          <li class="footer__link"><a href="#about">About</a></li>
+          <li class="footer__link"><a href="#discover">Discover</a></li>
+          <li class="footer__link"><a href="#blog">Blog</a></li>
+          <li class="footer__link"><a href="#journals">Journals</a></li>
+          <li class="footer__link"><a href="#gallery">Gallery</a></li>
+          <li class="footer__link"><a href="#contact">Contact</a></li>
         </ul>
-        <!-- End of Sidebar -->
+      </div>
+      <div class="footer__bar">
+        Copyright © 2023 Web Design Mastery. All rights reserved.
+      </div>
+    </section>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggle" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['username']?></span>
-                                <img class="img-profile rounded-circle" src="image/avatar/avatar2.png">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <!-- <div class="dropdown-divider"></div> -->
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
-
-                <?php include "conf/page.php"; ?>
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="pages/login/proses/proses_logout.php">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="assets/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="assets/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script>
-
-</body>
-
+    <script src="main.js"></script>
+  </body>
 </html>
-
-<?php } ?>

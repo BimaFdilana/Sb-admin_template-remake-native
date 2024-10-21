@@ -27,6 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     } else {
         echo "<script> alert('Gagal menghapus, data tidak ditemukan.'); </script>";
     }
-    echo "<script> window.location = '../../../../index.php?page=listGambar'; </script>";
+    echo "<script> window.location = '../../../../index_admin.php?page=listGambar'; </script>";
 }
 ?>

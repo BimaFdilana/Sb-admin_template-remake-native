@@ -4,7 +4,6 @@
   --primary-color: #0a0d14;
   --primary-color-light: #20242f;
   --secondary-color: #f49e09;
-  --thiry-color: #09e4f4;
   --extra-light: rgba(255, 255, 255, 0.5);
   --white: #ffffff;
   --max-width: 1200px;
@@ -47,16 +46,6 @@
   cursor: pointer;
 }
 
-.btnHeader {
-  padding: 0.50rem 1.5rem;
-  outline: none;
-  border: none;
-  font-size: 0.80rem;
-  color: var(--primary-color);
-  background-color: var(--thiry-color);
-  cursor: pointer;
-}
-
 img {
   width: 100%;
   display: flex;
@@ -79,7 +68,7 @@ body {
 
 header {
   background-image: linear-gradient(to top, var(--primary-color), transparent),
-    url("../image/assets/header.jpg");
+    url("assets/header.jpg");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -179,6 +168,7 @@ nav {
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+  background-color: var(--primary-color-light);
 }
 
 .about__card {
@@ -369,7 +359,7 @@ nav {
   text-align: center;
   font-size: 12rem;
   font-weight: 700;
-  background-image: url("../image/assets/banner.jpg");
+  background-image: url("assets/banner.jpg");
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1px var(--extra-light);
