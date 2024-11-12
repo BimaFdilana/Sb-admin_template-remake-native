@@ -50,7 +50,7 @@ $list_data_undangan = mysqli_query($conn, $query);
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <!-- Delete User -->
-                                <a href="pages/products/undangan/proses/proses_hapus_gambar.php?id_undangan=<?=$row['id_undangan'];?>" class="btn btn-danger btn-sm" role="button" title="Hapus Data " onclick="return confirm('Apakah anda yakin?')">
+                                <a href="pages/products/undangan/proses/proses_hapus_undangan.php?id_undangan=<?=$row['id_undangan'];?>" class="btn btn-danger btn-sm" role="button" title="Hapus Data " onclick="return confirm('Apakah anda yakin?')">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
