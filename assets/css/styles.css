@@ -365,6 +365,29 @@ nav {
   font-size: 0.8rem;
 }
 
+.room__card__details form {
+  width: 100%; /* Mengatur lebar form sesuai dengan kontainer */
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.room__card__details button {
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.room__card__details button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+
 .intro {
   position: relative;
   isolation: isolate;
