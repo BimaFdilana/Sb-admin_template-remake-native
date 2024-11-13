@@ -16,9 +16,16 @@ if ($row) {
     $_SESSION['email'] = $row['email'];
     $_SESSION['username'] = $row['username'];
     $_SESSION['role'] = $row['role'];
+    $_SESSION['logged_in'] = true;
 
     echo "<script>alert('Selamat datang, " . $row['username'] . ", kamu telah berhasil login!')</script>";
-    echo "<script>window.location.href='../../../index_admin.php'</script>";
+
+    // Cek role pengguna dan arahkan ke halaman yang sesuai
+    if ($row['role'] == 'Admin') {
+        echo "<script>window.location.href='../../../index_admin.php'</script>";
+    } else {
+        echo "<script>window.location.href='../../../index.php'</script>";
+    }
 } else {
     echo "<script>alert('Masukkan data email dan password dengan benar!')</script>";
     echo "<script>window.location.href='../pages/login.php'</script>";

@@ -17,6 +17,7 @@
   box-sizing: border-box;
 }
 
+
 .section__container {
   max-width: var(--max-width);
   margin: auto;
@@ -173,7 +174,7 @@ nav {
       rgba(15, 26, 44, 0.5),
       rgba(15, 26, 44, 0.5)
     ),
-    url("../../image/assets/header.jpg");
+    url("../../image/assets/gambar3.jpeg");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -322,6 +323,10 @@ nav {
 }
 
 .room__card img {
+  width: 100%;
+  height: 200px; /* Menentukan tinggi konsisten untuk semua gambar */
+  object-fit: cover; /* Menjaga proporsi gambar */
+  border-radius: 5px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
 

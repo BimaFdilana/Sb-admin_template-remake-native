@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['email'])) {
+if ($_SESSION['role'] !== 'Admin') {
     echo '<script>alert("Anda harus login terlebih dahulu!");';
     echo 'window.location.href="pages/login/pages/login.php"</script>';
 } else {
@@ -56,6 +56,7 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -85,7 +86,7 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php?page=home">
                 <div class="sidebar-brand-icon">
                     <img src="image/avatar/logo.png" alt="Logo" style="width: 165px; height: 55px;">
                 </div>
@@ -96,10 +97,12 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a href="index.php" class="nav-link ">
+                <a href="index.php?page=home" class="nav-link" target="_blank">
                     <i class="fas fa-fw fa-globe"></i>
-                    <span>Visit WebSite</span></a>
+                    <span>Visit Website</span>
+                </a>
             </li>
+
             <li class="nav-item <?= (in_array($request_uri, $beranda) ? 'active':'');?>">
                 <a href="index_admin.php?page=beranda" class="nav-link ">
                     <i class="fas fa-fw fa-home"></i>
@@ -115,8 +118,8 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-             <?php if ($_SESSION['role'] == 'Admin') {?>
-                <li class="nav-item <?= (in_array($request_uri, $kelola_data) ? 'active':'');?>">
+            <?php if ($_SESSION['role'] == 'Admin') {?>
+            <li class="nav-item <?= (in_array($request_uri, $kelola_data) ? 'active':'');?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
                     aria-expanded="true" aria-controls="collapseAdmin">
                     <i class="fas fa-fw fa-user"></i>
@@ -125,13 +128,15 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
                 <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Admin Setting :</h6>
-                        <a class="collapse-item <?= (in_array($request_uri, $user_active) ? 'active':'');?>" href="index_admin.php?page=data_user">List Account</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $register_active) ? 'active':'');?>" href="index_admin.php?page=tambah_user">Register Account</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $user_active) ? 'active':'');?>"
+                            href="index_admin.php?page=data_user">List Account</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $register_active) ? 'active':'');?>"
+                            href="index_admin.php?page=tambah_user">Register Account</a>
                     </div>
                 </div>
             </li>
             <?php } ?>
-            
+
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item <?= (in_array($request_uri, $kelola_product) ? 'active':'');?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct"
@@ -142,11 +147,16 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
                 <div id="collapseProduct" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Product List :</h6>
-                        <a class="collapse-item <?= (in_array($request_uri, $listUndangan_active) ? 'active':'');?>" href="index_admin.php?page=listUndangan">List Undangan</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $tambahUndangan_active) ? 'active':'');?>" href="index_admin.php?page=tambahUndangan">Tambah Undangan</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $listGambar_active) ? 'active':'');?>" href="index_admin.php?page=listGambar">List Gambar</a>
-                        <a class="collapse-item <?= (in_array($request_uri, $tambahGambar_active) ? 'active':'');?>" href="index_admin.php?page=tambahGambar">Tambah Gambar</a> 
-                        <a class="collapse-item <?= (in_array($request_uri, $listPesanan_active) ? 'active':'');?>" href="index_admin.php?page=listPesanan">Pesanan Pembelian</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $listUndangan_active) ? 'active':'');?>"
+                            href="index_admin.php?page=listUndangan">List Undangan</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $tambahUndangan_active) ? 'active':'');?>"
+                            href="index_admin.php?page=tambahUndangan">Tambah Undangan</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $listGambar_active) ? 'active':'');?>"
+                            href="index_admin.php?page=listGambar">List Gambar</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $tambahGambar_active) ? 'active':'');?>"
+                            href="index_admin.php?page=tambahGambar">Tambah Gambar</a>
+                        <a class="collapse-item <?= (in_array($request_uri, $listPesanan_active) ? 'active':'');?>"
+                            href="index_admin.php?page=listPesanan">Pesanan Pembelian</a>
                     </div>
                 </div>
             </li>
@@ -161,13 +171,13 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-            
+
             <!-- Main Content -->
             <div id="content">
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    
+
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggle" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
@@ -218,8 +228,9 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['username']?></span>
-                                <img class="img-profile rounded-circle" src="image/avatar/avatar2.png">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['username']?></span>
+                                <img class="img-profile rounded-circle" src="image/avatar/profile.jpeg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -229,7 +240,7 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
-                                
+
                             </div>
                         </li>
 
