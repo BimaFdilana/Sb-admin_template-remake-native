@@ -12,7 +12,7 @@ if ($row) {
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-
+    $_SESSION['id'] = $row['id'];
     $_SESSION['email'] = $row['email'];
     $_SESSION['username'] = $row['username'];
     $_SESSION['role'] = $row['role'];
@@ -28,6 +28,7 @@ if ($row) {
     }
 } else {
     echo "<script>alert('Masukkan data email dan password dengan benar!')</script>";
-    echo "<script>window.location.href='../pages/login.php'</script>";
+   $previous_page = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../../../index_admin.php';
+    echo "<script>window.location.href='$previous_page'</script>";
 }
 ?>
