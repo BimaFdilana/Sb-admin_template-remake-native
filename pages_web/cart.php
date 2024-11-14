@@ -63,7 +63,6 @@ session_start();
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
     <!-- <link rel="stylesheet" href="assets/css/styles.css" /> -->
-    <link rel="stylesheet" href="assets/css/style.css" />
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
     <title>BaleeKun-Digital</title>
 </head>

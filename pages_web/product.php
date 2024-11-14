@@ -60,6 +60,42 @@ alert("<?= $_SESSION['cart_success_message']; ?>");
 <?php unset($_SESSION['cart_success_message']); // Hapus pesan setelah ditampilkan ?>
 <?php endif; ?>
 
+<style>
+.custom-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    /* Ukuran ikon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20%;
+    /* Membuat tombol bulat */
+    transition: transform 0.2s ease, background-color 0.3s ease, border 0.3s ease;
+    border: 2px solid transparent;
+    /* Border default */
+}
+
+.custom-btn i {
+    margin: 0;
+}
+
+/* Garis tepi berwarna #e69100 pada ikon */
+.custom-btn:hover {
+    border-color: #A6AEBF;
+    /* Garis tepi saat hover */
+}
+
+
+
+/* Efek saat tombol diklik */
+.custom-btn:active {
+    transform: scale(0.9);
+    /* Efek zoom saat diklik */
+    background-color: #A6AEBF;
+    /* Mengubah warna latar belakang saat klik */
+}
+</style>
 <section class="room__container" id="room">
     <h2 class="section__header">Undangan Digital & VR</h2>
     <div class="room__grid">
@@ -87,7 +123,18 @@ alert("<?= $_SESSION['cart_success_message']; ?>");
                     <input type="hidden" name="id_undangan" value="<?= $row["id_undangan"]; ?>">
                     <input type="hidden" name="nama_undangan" value="<?= $row["nama_undangan"]; ?>">
                     <input type="hidden" name="harga_undangan" value="<?= $row["harga_undangan"]; ?>">
-                    <button type="submit" name="add_to_cart" class="btn btn-danger">Beli</button>
+                    <div class="row d-flex justify-content-center" style="gap: 15px;">
+                        <!-- Tombol Beli dengan ukuran khusus -->
+                        <button type="submit" name="add_to_cart" class="custom-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+
+                        <!-- Tombol Detail dengan ukuran khusus -->
+                        <button type="button" name="view_details" class="custom-btn" data-toggle="modal"
+                            data-target="#exampleModal-<?= $row["id_undangan"]; ?>">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -106,44 +153,53 @@ alert("<?= $_SESSION['cart_success_message']; ?>");
                 <h5 class="modal-title" style="color: black;" id="exampleModalLongTitle">Detail Product</h5>
             </div>
             <div class="modal-body">
-                <div class="col-12 mb-2 text-center">
-                    <?php $gambar = $row["image"];
-                    if ($gambar == null) {
-                        echo "<img src='image/avatar/default-150x150.png'/>";
-                    } else {
-                        echo "<img src='image/product_image/$gambar' />";
-                    }
-                    ?>
+                <div class="col-12 mb-3 text-center">
+                    <?php $gambar = $row["image"]; ?>
+                    <img src="<?= $gambar ? "image/product_image/$gambar" : 'image/avatar/default-150x150.png'; ?>"
+                        class="img-fluid rounded mb-2" alt="Gambar Produk" />
                 </div>
-                <!-- Nama Undangan dalam <h1> -->
-                <h1 style="font-weight: bold; color: black;"><?= $row["nama_undangan"]; ?></h1>
-                <!-- Jumlah berada di samping nama, dengan warna abu-abu tua dan container kuning -->
 
-                <div class="col-sm-5 col-6" style="color: black;">
-                    Stok: <?= $row["jumlah_undangan"]; ?>
+                <!-- Nama Undangan -->
+                <h1 class="text-center font-weight-bold text-dark">
+                    <?= $row["nama_undangan"]; ?>
+                </h1>
+
+                <!-- Harga Undangan -->
+                <h3 class="text-center" style=" color:#4a4a4a;">
+                    <?= "Rp " . number_format($row["harga_undangan"], 0, ',', '.'); ?> /Pcs
+                </h3>
+                <hr><br>
+                <!-- Detail Informasi -->
+                <div class="container mt-3">
+                    <div class="row">
+                        <!-- Stok -->
+                        <div class="col-6 text-dark">
+                            <strong>Stok:</strong> <?= $row["jumlah_undangan"]; ?>
+                        </div>
+
+                        <!-- Jenis Undangan -->
+                        <div class="col-6 text-dark">
+                            <strong>Jenis Undangan:</strong> <?= $row["jenis_undangan"]; ?>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <!-- Detail Undangan -->
+                        <div class="col-12 text-dark">
+                            <strong>Detail:</strong><br>
+                            <?= $row["detail_undangan"]; ?>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <!-- Deskripsi Undangan -->
+                        <div class="col-12 text-dark">
+                            <strong>Deskripsi:</strong><br> <?= $row["deskripsi_undangan"]; ?>
+                        </div>
+                    </div>
                 </div>
-                <div class="w-100 d-none d-md-block"></div>
-                <!-- Jenis Undangan diubah menjadi "Jenis Undangan:" -->
-                <div class="col-sm-5 col-6" style="color: black;"><strong>Jenis Undangan:</strong>
-                    <?= $row["jenis_undangan"]; ?></div>
-                <div class="w-100 d-none d-md-block"></div>
-
-                <!-- Harga dipindahkan di bawah nama undangan dengan <h2> dan format uang, ditambah /PCS -->
-                <h2 style="font-weight: bold; color: black;">
-                    <?= "Rp " . number_format($row["harga_undangan"], 0, ',', '.'); ?> /PCS
-                </h2>
-                <div class="w-100 d-none d-md-block"></div>
-
-                <!-- Detail diubah menjadi "Detail:" -->
-                <div class="col-sm-5 col-6" style="color: black;"><strong>Detail:</strong>
-                    <?= $row["detail_undangan"]; ?></div>
-                <div class="w-100 d-none d-md-block"></div>
-
-                <!-- Deskripsi diubah menjadi "Deskripsi:" -->
-                <div class="col-sm-5 col-6" style="color: black;"><strong>Deskripsi:</strong>
-                    <?= $row["deskripsi_undangan"]; ?></div>
-                <div class="w-100 d-none d-md-block"></div>
             </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
