@@ -1,25 +1,3 @@
-<?php
-session_start();
-
-// Periksa apakah permintaan POST untuk menghapus atau memperbarui kuantitas item di keranjang
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Hapus item dari keranjang berdasarkan ID produk
-    if (isset($_POST['remove_item'])) {
-        $remove_id = $_POST['remove_item'];
-        
-        foreach ($_SESSION['cart'] as $index => $item) {
-            if ($item['id'] == $remove_id) {
-                unset($_SESSION['cart'][$index]);
-                break;
-            }
-        }
-        // Reindex array setelah penghapusan
-        $_SESSION['cart'] = array_values($_SESSION['cart']);
-    }
-
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,11 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Terima kasih telah memesan! Pesanan Anda sedang diproses dan akan segera kami kirimkan.</p>
 
         <!-- Tombol OK -->
-
-        <form method="POST">
-            <input type="hidden" name="remove_item" value="<?= $item['id']; ?>">
-            <a href="../index.php" class="btn btn-success">Lanjutkan</a>
-        </form>
+        <a href="../index.php" class="btn btn-success">Lanjutkan</a>
     </div>
 
     <!-- Sertakan Bootstrap JS -->

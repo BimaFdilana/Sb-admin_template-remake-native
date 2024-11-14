@@ -30,6 +30,7 @@ if (isset($_POST['user_id'], $_POST['total'], $_POST['items'])) {
             ':items' => $items,
         ]);
 
+        unset($_SESSION['cart']);
         // Redirect ke halaman sukses atau halaman konfirmasi
          echo "<script>
             alert('Pemesanan berhasil! Terima kasih telah memesan.');

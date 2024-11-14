@@ -18,7 +18,7 @@ if(isset($_GET['page'])) {
             include 'pages/products/undangan/pages/tambah_pesanan.php';
             break;
         case 'listPesanan':
-            include 'pages/products/undangan/pages/list_pesanan.php';
+            include 'pages/products/pesanan/pages/list_pesanan.php';
             break;
             // Gambar
         case 'tambahGambar';

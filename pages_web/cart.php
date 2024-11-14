@@ -13,11 +13,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
             }
         }
+        
         // Reindex array setelah penghapusan
         $_SESSION['cart'] = array_values($_SESSION['cart']);
+        
+        // Simpan pesan keberhasilan dalam sesi
+        $_SESSION['cart_success_message'] = "Produk berhasil dihapus dari keranjang!";
+        
+        // Muat ulang halaman
+        header("Location: " . $_SERVER['REQUEST_URI']); // Kembali ke halaman yang sama
+        exit();
     }
 
-    // Perbarui kuantitas item
+
+    // Mengupdate kuantitas item di keranjang
     if (isset($_POST['update_item'])) {
         $update_id = $_POST['update_item'];
         $action = $_POST['action'];
@@ -28,17 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $item['quantity']++;
                 } elseif ($action == 'decrease' && $item['quantity'] > 1) {
                     $item['quantity']--;
+                } elseif (isset($_POST['quantity'])) {
+                    // Update kuantitas langsung dari input
+                    $item['quantity'] = $_POST['quantity'];
                 }
                 break;
             }
-        }
-    }
-
-    // Hitung jumlah item di dalam cart
-    $cart_item_count = 0;
-    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $item) {
-            $cart_item_count += $item['quantity'];
         }
     }
 }
@@ -65,6 +69,13 @@ session_start();
 </head>
 
 <body>
+    <?php if (isset($_SESSION['cart_success_message'])): ?>
+    <script>
+    alert("<?= $_SESSION['cart_success_message']; ?>");
+    </script>
+    <?php unset($_SESSION['cart_success_message']); // Hapus pesan setelah ditampilkan ?>
+    <?php endif; ?>
+
     <br>
     <section class="about" id="about">
         <div class="section__container about__container">
@@ -109,9 +120,11 @@ session_start();
                                     <!-- Input Kuantitas -->
                                     <form method="POST" style="display: inline;">
                                         <input type="hidden" name="update_item" value="<?= $item['id']; ?>">
-                                        <input type="number" name="quantity" value="<?= $item['quantity']; ?>" min="1"
-                                            class="form-control" style="width: 70px; margin: 0 10px;">
+                                        <input type="text" name="quantity" value="<?= $item['quantity']; ?>" min="1"
+                                            class="form-control quantity-input" style="width: 70px; margin: 0 10px;"
+                                            data-item-id="<?= $item['id']; ?>">
                                     </form>
+
 
                                     <!-- Tombol Tambah -->
                                     <form method="POST" style="display: inline;">
@@ -163,6 +176,30 @@ session_start();
     </script>
     <!-- Sertakan jQuery terlebih dahulu -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    // Fungsi untuk menghitung harga total berdasarkan kuantitas
+    function updateTotalPrice(inputElement) {
+        // Ambil ID item dan harga dari elemen yang ada
+        var itemId = inputElement.getAttribute("data-item-id");
+        var price = parseFloat(document.getElementById("price-" + itemId).textContent.replace('Rp ', '').replace(',',
+            '.'));
+        var quantity = parseInt(inputElement.value);
+
+        // Hitung harga total
+        var totalPrice = price * quantity;
+
+        // Update elemen harga total yang sesuai
+        document.getElementById("total-" + itemId).textContent = "Rp " + totalPrice.toLocaleString('id-ID');
+    }
+
+    // Tambahkan event listener pada input kuantitas
+    document.querySelectorAll('.quantity-input').forEach(function(input) {
+        input.addEventListener('input', function() {
+            updateTotalPrice(this);
+        });
+    });
+    </script>
+
 
     <!-- Sertakan Bootstrap JS setelah jQuery -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

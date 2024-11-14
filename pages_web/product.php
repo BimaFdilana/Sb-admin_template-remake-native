@@ -28,16 +28,22 @@ function addToCart($item_id, $name, $price, $quantity = 1) {
     }
 }
 
-// Menambahkan item ke keranjang
 if (isset($_POST['add_to_cart'])) {
     $id_undangan = $_POST['id_undangan'];
     $nama_undangan = $_POST['nama_undangan'];
     $harga_undangan = $_POST['harga_undangan'];
     
+    // Tambahkan ke keranjang
     addToCart($id_undangan, $nama_undangan, $harga_undangan);
-    header("Location: index.php?page=cart"); // Mengarahkan ke halaman keranjang
+    
+    // Simpan pesan keberhasilan dalam sesi
+    $_SESSION['cart_success_message'] = "Produk berhasil ditambahkan ke keranjang!";
+    
+    // Muat ulang halaman
+    header("Location: " . $_SERVER['REQUEST_URI']); // Kembali ke halaman yang sama
     exit();
 }
+
 
 // Query untuk mengambil data undangan
 $query = "SELECT u.id_undangan, u.nama_undangan, u.jumlah_undangan, u.harga_undangan, u.jenis_undangan, u.deskripsi_undangan, u.detail_undangan, i.image
@@ -46,6 +52,13 @@ $query = "SELECT u.id_undangan, u.nama_undangan, u.jumlah_undangan, u.harga_unda
 $list_data_undangan = mysqli_query($conn, $query);
 ?>
 <br>
+
+<?php if (isset($_SESSION['cart_success_message'])): ?>
+<script>
+alert("<?= $_SESSION['cart_success_message']; ?>");
+</script>
+<?php unset($_SESSION['cart_success_message']); // Hapus pesan setelah ditampilkan ?>
+<?php endif; ?>
 
 <section class="room__container" id="room">
     <h2 class="section__header">Undangan Digital & VR</h2>

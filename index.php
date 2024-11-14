@@ -1,5 +1,6 @@
 <?php
 session_start();
+    $cart_item_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
 <!DOCTYPE html>
