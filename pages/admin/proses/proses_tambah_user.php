@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $no_hp = $_POST['no_hp'];
     $password = $_POST['password'];
-    $role = 'Admin';
+    $role = 'User';
     $password = md5($password);
 
     $query = "INSERT INTO tb_user SET
@@ -19,11 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        echo "<script>alert('Berhasil menambahkan data $username!');</script>";
-        echo "<script>window.location = '../../../index_admin.php?page=data_user';</script>";
+        //---
+        echo "<script>alert('Berhasil menambahkan data $username!')</script>";
+        $previous_page = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../../../index_admin.php';
+        echo "<script>window.location.href='$previous_page'</script>";
     } else {
         echo "<script>alert('Gagal menambahkan data $username, coba cek isian anda!');</script>";
-        echo "<script>window.location = '../index_admin.php?page=tambah_user';</script>";
+        $previous_page = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../../../index_admin.php';
+        echo "<script>window.location.href='$previous_page'</script>";
     }
 }
 ?>

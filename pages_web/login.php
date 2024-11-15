@@ -27,12 +27,19 @@ session_start();
                     <hr>
                     <form class="user" action="pages/login/proses/proses_login.php" method="post">
                         <div class="form-group">
-                            <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                aria-describedby="emailHelp" placeholder="Email" name="email" id="email">
+                            <input type="email" class="form-control form-control-user" id="email" placeholder="Email"
+                                name="email">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control form-control-user" id="exampleInputPassword"
-                                placeholder="Password" id="password" name="password">
+                            <div class="input-group">
+                                <input type="password" class="form-control form-control-user" id="password"
+                                    placeholder="Password" name="password">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="toggle-password">
+                                        <i class="ri-eye-line"></i> <!-- Ikon mata -->
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="custom-control custom-checkbox small">
@@ -45,7 +52,7 @@ session_start();
                         </div>
                     </form>
                     <div class="text-center mt-3">
-                        <p>Belum punya akun? <a href="pages/register/register.php" class="text-primary">Register</a></p>
+                        <p>Belum punya akun? <a href="index.php?page=register" class="text-primary">Register</a></p>
                     </div>
                 </div>
             </div>
@@ -54,6 +61,26 @@ session_start();
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="assets/js/main.js"></script>
+
+    <script>
+    // Toggle password visibility
+    const togglePassword = document.getElementById('toggle-password');
+    const passwordField = document.getElementById('password');
+
+    togglePassword.addEventListener('click', function() {
+        // Ganti tipe input password
+        const type = passwordField.type === 'password' ? 'text' : 'password';
+        passwordField.type = type;
+
+        // Ganti ikon mata terbuka/tutup
+        const icon = togglePassword.querySelector('i');
+        if (passwordField.type === 'password') {
+            icon.classList.replace('ri-eye-off-line', 'ri-eye-line'); // Mata terbuka
+        } else {
+            icon.classList.replace('ri-eye-line', 'ri-eye-off-line'); // Mata tertutup
+        }
+    });
+    </script>
 </body>
 
 </html>

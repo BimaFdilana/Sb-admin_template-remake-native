@@ -91,6 +91,9 @@ session_start();
                     case 'login':
                         include 'pages_web/login.php';
                         break;
+                    case 'register':
+                        include 'pages_web/register.php';
+                        break;
                     default:
                         include 'pages_web/home.php';
                 }
