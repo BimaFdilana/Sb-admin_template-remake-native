@@ -35,6 +35,22 @@ if (isset($_POST['user_id'], $_POST['total'], $_POST['items'])) {
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Pastikan session username ada
 
         if ($no_hp && $username) {
+            // Mengubah nomor HP ke format yang dimulai dengan 62
+            if (substr($no_hp, 0, 2) === '08') {
+                // Jika nomor HP dimulai dengan '08', ganti menjadi '62'
+                $no_hp = '628' . substr($no_hp, 2);
+            } elseif (substr($no_hp, 0, 3) === '628') {
+                // Jika nomor HP sudah dimulai dengan '628', biarkan saja
+                $no_hp = $no_hp;
+            } else {
+                // Jika nomor HP memiliki format yang tidak dikenal
+                echo "<script>
+                    alert('Nomor HP tidak valid.');
+                    window.location.href = '../alert.php'; // Arahkan ke halaman lain jika nomor HP tidak valid
+                  </script>";
+                exit;
+            }
+            
             // Dekode JSON items
             $itemsArray = json_decode($items, true);
 

@@ -36,9 +36,7 @@ session_start();
                                 aria-describedby="emailHelp" placeholder="Masukkan Email..." name="email" id="email">
                         </div>
                         <div class="form-group">
-                            <input type="tel" class="form-control form-control-user" id="exampleInputno_hp"
-                                aria-describedby="no_hpHelp" placeholder="Masukkan Nomor Handphone..." name="no_hp"
-                                id="no_hp">
+                            <input type="hidden" name="no_hp" value="085175244552">
                         </div>
                         <div class="form-group">
                             <div class="input-group">
