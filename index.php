@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+    session_start();
     $cart_item_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
@@ -35,7 +36,7 @@ session_start();
                 <li><a href="?page=aboutus">AboutUs</a></li>
 
                 <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
-                <li><a href="?page=cart"><i class="ri-history-fill" style="font-size: 30px;"></i></a></li>
+                <li><a href="?page=history"><i class="ri-notification-3-fill" style="font-size: 30px;"></i></a></li>
                 <li>
                     <a href="?page=cart" style="position: relative;">
                         <i class="ri-shopping-cart-fill" style="font-size: 30px;"></i>
@@ -68,7 +69,7 @@ session_start();
             $loggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 
             // Daftar halaman yang memerlukan login
-            $pagesRequireLogin = ['product', 'cart'];
+            $pagesRequireLogin = ['product', 'cart', 'history'];
 
             // Cek jika halaman yang diminta membutuhkan login dan pengguna belum login
             if (in_array($page, $pagesRequireLogin) && !$loggedIn) {
@@ -81,6 +82,9 @@ session_start();
                         break;
                     case 'cart':
                         include 'pages_web/cart.php';
+                        break;
+                    case 'history':
+                        include 'pages_web/history.php';
                         break;
                     case 'tutorial':
                         include 'pages_web/tutorial.php';
@@ -179,6 +183,7 @@ session_start();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="assets/js/main.js"></script>
+
 </body>
 
 </html>

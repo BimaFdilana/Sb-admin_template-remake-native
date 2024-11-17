@@ -1,13 +1,19 @@
 <?php
 require("conf/db_conn.php");
 
-// Query untuk mengambil data undangan, menambahkan LIMIT 3 untuk hanya mengambil 3 data
+// Fungsi untuk memformat harga menjadi format Rupiah
+function format_currency($amount) {
+    return "Rp " . number_format($amount, 0, ',', '.');
+}
+
+// Query untuk mengambil data undangan
 $query = "SELECT u.id_undangan, u.nama_undangan, u.jumlah_undangan, u.harga_undangan, u.jenis_undangan, u.deskripsi_undangan, u.detail_undangan, i.image
           FROM tb_undangan u
           LEFT JOIN tb_image i ON u.id_image = i.id_image
-          LIMIT 6";  // Hanya mengambil 3 data
+          LIMIT 6";  
 $list_data_undangan = mysqli_query($conn, $query);
 ?>
+
 
 <header class="header" id="home">
     <div class="section__container header__container">
@@ -115,7 +121,7 @@ $list_data_undangan = mysqli_query($conn, $query);
             </div>
             <div class="room__card__details">
                 <h4><?php echo htmlspecialchars($row['nama_undangan']); ?></h4>
-                <h3><?php echo htmlspecialchars($row['harga_undangan']); ?></h3>
+                <h3><?php echo format_currency($row['harga_undangan']); ?></h3>
             </div>
         </a>
         <?php } ?>

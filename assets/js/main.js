@@ -1,6 +1,8 @@
 const menuBtn = document.getElementById("menu-btn");
 const navLinks = document.getElementById("nav-links");
 const menuBtnIcon = menuBtn.querySelector("i");
+var box = document.getElementById("box");
+var down = false;
 
 menuBtn.addEventListener("click", (e) => {
   navLinks.classList.toggle("open");
@@ -53,4 +55,15 @@ ScrollReveal().reveal(".news__card", {
   interval: 500,
 });
 
+function toggleNotifi() {
+  if (down) {
+    box.style.height = "0px";
+    box.style.opacity = 0;
+    down = false;
+  } else {
+    box.style.height = "510px";
+    box.style.opacity = 1;
+    down = true;
+  }
+}
 

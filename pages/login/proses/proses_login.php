@@ -16,6 +16,7 @@ if ($row) {
     $_SESSION['email'] = $row['email'];
     $_SESSION['username'] = $row['username'];
     $_SESSION['role'] = $row['role'];
+    $_SESSION['no_hp'] = $row['no_hp'];
     $_SESSION['logged_in'] = true;
 
     echo "<script>alert('Selamat datang, " . $row['username'] . ", kamu telah berhasil login!')</script>";

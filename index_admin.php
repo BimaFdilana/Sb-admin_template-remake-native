@@ -31,6 +31,7 @@ $tambahUndangan_active = array(
 
 $listPesanan_active = array(
     $adder . 'index_admin.php?page=listPesanan',
+    $adder . 'index_admin.php?page=ubahPesanan',
 );
 
 $tambahGambar_active = array(

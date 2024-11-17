@@ -9,20 +9,18 @@ $query = "SELECT
         p.items AS order_items,
         p.status AS order_status,
         p.created_at AS order_created_at,
+        p.nomor_resi AS order_resi,
         u.username AS user_username
     FROM 
         tb_pesanan p
     LEFT JOIN 
         tb_user u ON p.user_id = u.id
-";
+    ORDER BY p.created_at DESC";  // Mengurutkan berdasarkan created_at DESC (dari yang terbaru ke terlama)
 
-// Menjalankan query
 $daftar_pesanan = mysqli_query($conn, $query);
 ?>
 
 <div class="container-fluid">
-
-    <!-- Page Heading -->
     <div class="row mb-2">
         <div class="col-sm-12">
             <h1 class="h3 mb-2 text-gray-800">Admin <i class="fas fa-angle-right"></i> List Orders</h1>
@@ -33,31 +31,33 @@ $daftar_pesanan = mysqli_query($conn, $query);
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">List Orders</h6>
+            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editOrderModal"
+                data-id="<?= $row['order_id']; ?>" data-status="<?= $row['order_status']; ?>"
+                data-nomor-resi="<?= $row['order_resi']; ?>">
+                <i class="fas fa-edit"> Update Resi & Proses Pengiriman</i>
+            </button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th style="text-align: center;">No</th>
-                            <th>Order ID</th>
+                            <th>OrderID</th>
                             <th>Username</th>
                             <th>Total</th>
                             <th>Items</th>
                             <th>Status</th>
+                            <th>Nomor Resi</th>
                             <th>Created At</th>
                             <th style="text-align: center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = 0; ?>
                         <?php while ($row = mysqli_fetch_assoc($daftar_pesanan)) : ?>
                         <tr>
-                            <td style="text-align: center"><?= ++$no; ?></td>
-                            <td><?= $row['order_id']; ?></td>
+                            <td style="text-align: center;"><strong><?= $row['order_id']; ?></strong></td>
                             <td><?= $row['user_username']; ?></td>
                             <td>Rp <?= number_format($row['order_total'], 0, ',', '.'); ?></td>
-                            <!-- Mengubah JSON Items ke Format Lebih Rapi -->
                             <td>
                                 <?php
                                     $items = json_decode($row['order_items'], true);
@@ -78,15 +78,11 @@ $daftar_pesanan = mysqli_query($conn, $query);
                                 ?>
                             </td>
                             <td><?= $row['order_status']; ?></td>
+                            <td><?= $row['order_resi']; ?></td>
                             <td><?= $row['order_created_at']; ?></td>
                             <td style="text-align: center; white-space: nowrap;">
-                                <!-- Edit Order -->
-                                <a href="index_admin.php?page=ubah_order&id=<?= $row['order_id']; ?>"
-                                    class="btn btn-success btn-sm" role="button" title="Edit Order">
-                                    <i class="fas fa-edit"></i>
-                                </a>
                                 <!-- Delete Order -->
-                                <a href="pages/admin/proses/proses_hapus_order.php?id=<?= $row['order_id']; ?>"
+                                <a href="pages/products/pesanan/proses/proses_hapus_pesanan.php?id=<?= $row['order_id']; ?>"
                                     class="btn btn-danger btn-sm" role="button" title="Delete Order"
                                     onclick="return confirm('Are you sure you want to delete this order?')">
                                     <i class="fas fa-trash"></i>
@@ -94,11 +90,64 @@ $daftar_pesanan = mysqli_query($conn, $query);
                             </td>
                         </tr>
                         <?php endwhile; ?>
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-<!-- /.container-fluid -->
+
+<!-- Modal untuk Edit Order -->
+<div class="modal fade" id="editOrderModal" tabindex="-1" role="dialog" aria-labelledby="editOrderModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form id="editOrderForm" method="post" action="pages/products/pesanan/proses/proses_ubah_pesanan.php">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editOrderModalLabel">Edit Order</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="OrderId">OrderID</label>
+                        <input type="text" name="id" class="form-control" id="orderId" placeholder="Masukan OrderID">
+                    </div>
+                    <div class="form-group">
+                        <label for="orderStatus">Status</label>
+                        <select name="status" id="orderStatus" class="form-control">
+                            <option value="Pending">Pending</option>
+                            <option value="Delivery">Delivery</option>
+                            <option value="Success">Success</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderResi">Nomor Resi</label>
+                        <input type="text" name="nomor_resi" id="orderResi" class="form-control"
+                            placeholder="Enter Tracking Number">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// Menangani data untuk modal
+$('#editOrderModal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget);
+    var orderId = button.data('id');
+    var orderStatus = button.data('status');
+    var orderResi = button.data('nomor-resi');
+
+    var modal = $(this);
+    modal.find('#orderId').val(orderId);
+    modal.find('#orderStatus').val(orderStatus);
+    modal.find('#orderResi').val(orderResi);
+});
+</script>
