@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $no_hp = $_POST['no_hp'];
+    $role = $_POST['role'];
     $ubah_password = isset($_POST['ubah_password']) && $_POST['ubah_password'] ? true : false;
 
     if ($ubah_password) {
@@ -15,13 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   username = '$username',
                   email = '$email',
                   no_hp = '$no_hp',
-                  password = '$password' 
+                  role = '$role',
+                  password = '$password'
                   WHERE id='$id'";
     } else {
         $query = "UPDATE tb_user SET
                   username = '$username',
                   email = '$email'
                   no_hp = '$no_hp',
+                  role = '$role'
                   WHERE id='$id'";
     }
 

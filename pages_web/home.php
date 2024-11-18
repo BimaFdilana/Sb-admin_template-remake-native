@@ -23,78 +23,20 @@ $list_data_undangan = mysqli_query($conn, $query);
 
     </div>
 </header>
-<section class="menu" id="menu">
-    <div class="section__container menu__container">
-        <ul class="menu__banner">
-            <li>
-                <span><i class="ri-file-text-line"></i></span>
-                <h4>84k</h4>
-                <p>Digital Invitations Sent</p>
-            </li>
-            <li>
-                <span><i class="ri-user-line"></i></span>
-                <h4>10M</h4>
-                <p>Invitations Viewed Worldwide</p>
-            </li>
-            <li>
-                <span><i class="ri-function-line"></i></span>
-                <h4>200+</h4>
-                <p>Event Types Supported</p>
-            </li>
-            <li>
-                <span><i class="ri-lightbulb-flash-line"></i></span>
-                <h4>1M+</h4>
-                <p>Happy Couples & Guests</p>
-            </li>
-        </ul>
-        <div class="menu__header">
-            <div>
-                <h2 class="section__header"></h2>
-            </div>
-            <div class="section__nav">
-                <span><i class="ri-arrow-left-line"></i></span>
-                <span><i class="ri-arrow-right-line"></i></span>
-            </div>
-        </div>
-        <div class="menu__images">
-            <img src="image/assets/gambar1.jpg" alt="menu" />
-            <img src="image/assets/gambar2.jpg" alt="menu" />
-            <img src="image/assets/gambar4.jpg" alt="menu" />
-        </div>
 
-    </div>
-</section>
-
-<section class="about" id="about">
-    <div class="section__container about__container">
-        <div class="about__grid">
-            <div class="about__image">
-                <img src="image/assets/gambar1.jpg" alt="about" />
-            </div>
-            <div class="about__card">
-                <span><i class="ri-user-line"></i></span>
-                <h4>Virtual Reality</h4>
-                <p>Sambut Momen Spesialmu dengan Undangan Digital.</p>
-            </div>
-            <div class="about__image">
-                <img src="image/assets/gambar2.jpg" alt="about" />
-            </div>
-            <div class="about__card">
-                <span><i class="ri-calendar-check-line"></i></span>
-                <h4>Undangan Digital</h4>
-                <p>Ciptakan Momen Berkesan dengan Undangan Digital.</p>
-            </div>
-        </div>
-        <div class="about__content">
-            <p class="section__subheader">ABOUT US</p>
-            <h2 class="section__header">Baleekun Digital</h2>
+<section class="intro">
+    <div class="section__container intro__container">
+        <div class="intro__cotent">
+            <p class="section__subheader">INTRO VIDEO</p>
+            <h2 class="section__header">Virtual Reality Demo</h2>
             <p class="section__description">
-                Undangan Digital VR adalah cara inovatif untuk mengirimkan undangan menggunakan teknologi Virtual
-                Reality. Dengan hanya menggunakan Smartphone, tamu dapat merasakan pengalaman undangan yang interaktif,
-                memungkinkan mereka untuk menjelajahi tema acara secara virtual dan mendapatkan informasi secara lebih
-                menarik dan imersif.
+                Undangan ini bukan hanya tentang memberi tahu orang-orang mengenai acara Anda — ini adalah tentang
+                memberikan mereka pengalaman yang tak terlupakan, di mana mereka bisa merasa seolah-olah sudah menjadi
+                bagian dari acara Anda sejak hari pertama.
             </p>
-            <a href="index.php?page=aboutus"><button class="btn">See More</button></a>
+        </div>
+        <div class="intro__video">
+            <video src="image/assets/luxury.mp4" autoplay muted loop></video>
         </div>
     </div>
 </section>
@@ -125,24 +67,6 @@ $list_data_undangan = mysqli_query($conn, $query);
             </div>
         </a>
         <?php } ?>
-    </div>
-</section>
-
-
-<section class="intro">
-    <div class="section__container intro__container">
-        <div class="intro__cotent">
-            <p class="section__subheader">INTRO VIDEO</p>
-            <h2 class="section__header">Virtual Reality Demo</h2>
-            <p class="section__description">
-                Undangan ini bukan hanya tentang memberi tahu orang-orang mengenai acara Anda — ini adalah tentang
-                memberikan mereka pengalaman yang tak terlupakan, di mana mereka bisa merasa seolah-olah sudah menjadi
-                bagian dari acara Anda sejak hari pertama.
-            </p>
-        </div>
-        <div class="intro__video">
-            <video src="image/assets/luxury.mp4" autoplay muted loop></video>
-        </div>
     </div>
 </section>
 
@@ -198,5 +122,82 @@ $list_data_undangan = mysqli_query($conn, $query);
                 carefully curated special offers cater to all your needs.
             </p>
         </div>
+    </div>
+</section>
+
+
+<section class="about" id="about">
+    <div class="section__container about__container">
+        <div class="about__grid">
+            <div class="about__image">
+                <img src="image/assets/gambar1.jpg" alt="about" />
+            </div>
+            <div class="about__card">
+                <span><i class="ri-user-line"></i></span>
+                <h4>Virtual Reality</h4>
+                <p>Sambut Momen Spesialmu dengan Undangan Digital.</p>
+            </div>
+            <div class="about__image">
+                <img src="image/assets/gambar2.jpg" alt="about" />
+            </div>
+            <div class="about__card">
+                <span><i class="ri-calendar-check-line"></i></span>
+                <h4>Undangan Digital</h4>
+                <p>Ciptakan Momen Berkesan dengan Undangan Digital.</p>
+            </div>
+        </div>
+        <div class="about__content">
+            <p class="section__subheader">ABOUT US</p>
+            <h2 class="section__header">Baleekun Digital</h2>
+            <p class="section__description">
+                Undangan Digital VR adalah cara inovatif untuk mengirimkan undangan menggunakan teknologi Virtual
+                Reality. Dengan hanya menggunakan Smartphone, tamu dapat merasakan pengalaman undangan yang interaktif,
+                memungkinkan mereka untuk menjelajahi tema acara secara virtual dan mendapatkan informasi secara lebih
+                menarik dan imersif.
+            </p>
+            <a href="index.php?page=aboutus"><button class="btn">See More</button></a>
+        </div>
+    </div>
+</section>
+
+<section class="menu" id="menu">
+    <div class="section__container menu__container">
+        <ul class="menu__banner">
+            <li>
+                <span><i class="ri-file-text-line"></i></span>
+                <h4>84k</h4>
+                <p>Digital Invitations Sent</p>
+            </li>
+            <li>
+                <span><i class="ri-user-line"></i></span>
+                <h4>10M</h4>
+                <p>Invitations Viewed Worldwide</p>
+            </li>
+            <li>
+                <span><i class="ri-function-line"></i></span>
+                <h4>200+</h4>
+                <p>Event Types Supported</p>
+            </li>
+            <li>
+                <span><i class="ri-lightbulb-flash-line"></i></span>
+                <h4>1M+</h4>
+                <p>Happy Couples & Guests</p>
+            </li>
+        </ul>
+        <div class="menu__header">
+            <div>
+                <h2 class="section__header"></h2>
+            </div>
+            <div class="section__nav">
+                <span><i class="ri-arrow-left-line"></i></span>
+                <span><i class="ri-arrow-right-line"></i></span>
+            </div>
+        </div>
+        <div class="menu__images">
+            <img src="image/assets/gambar1.jpg" alt="menu" />
+            <img src="image/assets/gambar2.jpg" alt="menu" />
+            <img src="image/assets/gambar4.jpg" alt="menu" />
+        </div>
+
     </div>
 </section>

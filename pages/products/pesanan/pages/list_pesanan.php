@@ -55,7 +55,9 @@ $daftar_pesanan = mysqli_query($conn, $query);
                     <tbody>
                         <?php while ($row = mysqli_fetch_assoc($daftar_pesanan)) : ?>
                         <tr>
+                            <!-- Order ID -->
                             <td style="text-align: center;"><strong><?= $row['order_id']; ?></strong></td>
+                            <!-- Nama Baru -->
                             <td><?= $row['user_username']; ?></td>
                             <td>Rp <?= number_format($row['order_total'], 0, ',', '.'); ?></td>
                             <td>
