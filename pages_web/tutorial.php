@@ -3,7 +3,7 @@
     <h2 class="section__header">Cara Pemesanan Undangan Digital</h2>
     <div class="feature__grid">
         <div class="feature__card">
-            <span><i class="ri-thumb-up-line"></i></span>
+            <img src="image/avatar/default.png" alt="High Rating" class="feature__icon" />
             <h4>Have High Rating</h4>
             <p>
                 We take pride in curating a selection of hotels that consistently
@@ -11,7 +11,7 @@
             </p>
         </div>
         <div class="feature__card">
-            <span><i class="ri-time-line"></i></span>
+            <img src="image/avatar/default.png" alt="Quiet Hours" class="feature__icon" />
             <h4>Quite Hours</h4>
             <p>
                 We understand that peace and uninterrupted rest are essential for a
@@ -19,7 +19,7 @@
             </p>
         </div>
         <div class="feature__card">
-            <span><i class="ri-map-pin-line"></i></span>
+            <img src="image/avatar/default.png" alt="Best Location" class="feature__icon" />
             <h4>Best Location</h4>
             <p>
                 At our hotel booking website, we take pride in offering
@@ -27,7 +27,7 @@
             </p>
         </div>
         <div class="feature__card">
-            <span><i class="ri-close-circle-line"></i></span>
+            <img src="image/avatar/default.png" alt="Free Cancellation" class="feature__icon" />
             <h4>Free Cancellation</h4>
             <p>
                 We understand that travel plans can change unexpectedly, which is
@@ -35,7 +35,7 @@
             </p>
         </div>
         <div class="feature__card">
-            <span><i class="ri-wallet-line"></i></span>
+            <img src="image/avatar/default.png" alt="Payment Options" class="feature__icon" />
             <h4>Payment Options</h4>
             <p>
                 Our hotel booking website offers a range of convenient payment
@@ -43,7 +43,7 @@
             </p>
         </div>
         <div class="feature__card">
-            <span><i class="ri-coupon-line"></i></span>
+            <img src="image/avatar/default.png" alt="Special Offers" class="feature__icon" />
             <h4>Special Offers</h4>
             <p>
                 Whether you're planning a romantic getaway, or a business trip, our

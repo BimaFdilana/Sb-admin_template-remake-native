@@ -115,9 +115,10 @@
                     <span>BaleeKun<br />Augmented Reality</span>
                 </div>
                 <p class="section__description">
-                    Undangan ini bukan hanya tentang memberi tahu orang-orang mengenai acara Anda — ini adalah
-                    tentang memberikan mereka pengalaman yang tak terlupakan, di mana mereka bisa merasa seolah-olah
-                    sudah menjadi bagian dari acara Anda sejak hari pertama.
+                    Dengan Undangan Digital AR, setiap acara menjadi lebih berkesan, modern, dan praktis. Berikan
+                    pengalaman luar biasa bagi tamu Anda, hanya dengan satu produk revolusioner.
+
+                    Pesan Sekarang dan jadikan momen spesial Anda lebih berharga!
                 </p>
                 <ul class="footer__socials">
                     <li>
@@ -137,10 +138,7 @@
             <div class="footer__col">
                 <h4>Services</h4>
                 <div class="footer__links">
-                    <li><a href="#">Online Shopping</a></li>
-                    <li><a href="#">Special Offers</a></li>
-                    <li><a href="#">Concierge Services</a></li>
-                    <li><a href="#">Customer Support</a></li>
+                    <li><a href="#">Order Now</a></li>
                 </div>
             </div>
             <div class="footer__col">
@@ -150,21 +148,21 @@
                         <span><i class="ri-phone-fill"></i></span>
                         <div>
                             <h5>Phone Number</h5>
-                            <p>+91 9876543210</p>
+                            <p>+62 851-7524-4552</p>
                         </div>
                     </li>
                     <li>
                         <span><i class="ri-record-mail-line"></i></span>
                         <div>
                             <h5>Email</h5>
-                            <p>info@hotelmiranda.com</p>
+                            <p>instinctsz19@gmail.com</p>
                         </div>
                     </li>
                     <li>
                         <span><i class="ri-map-pin-2-fill"></i></span>
                         <div>
                             <h5>Location</h5>
-                            <p>First St. NYC</p>
+                            <p>Bengkalis, Jln Pramuka</p>
                         </div>
                     </li>
                 </div>
