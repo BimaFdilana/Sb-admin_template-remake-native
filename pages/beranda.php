@@ -12,159 +12,266 @@ $query = "SELECT * FROM tb_image";
 $list_gambar = mysqli_query($conn, $query);
 $jumlah_gambar = mysqli_num_rows($list_gambar);
 
-// $query = "SELECT * FROM tb_pesanan";
-// $list_gambar = mysqli_query($conn, $query);
-// $jumlah_gambar = mysqli_num_rows($list_gambar);
-?> 
+$query = "SELECT * FROM tb_pesanan";
+$list_pesanan = mysqli_query($conn, $query);
+$jumlah_pesanan = mysqli_num_rows($list_pesanan);
 
-<!-- Begin Page Content -->
+$status_pending = mysqli_query($conn, "SELECT * FROM tb_pesanan WHERE status = 'pending'");
+$status_delivery = mysqli_query($conn, "SELECT * FROM tb_pesanan WHERE status = 'delivery'");
+$status_success = mysqli_query($conn, "SELECT * FROM tb_pesanan WHERE status = 'success'");
+
+// Menyimpan jumlah data berdasarkan status
+$jumlah_pending = mysqli_num_rows($status_pending);
+$jumlah_delivery = mysqli_num_rows($status_delivery);
+$jumlah_success = mysqli_num_rows($status_success);
+
+// Query untuk menghitung total penjualan
+$query_total = "SELECT SUM(total) AS total_penjualan FROM tb_pesanan WHERE status = 'success'";
+$result_total = mysqli_query($conn, $query_total);
+
+// Mendapatkan hasil
+$row_total = mysqli_fetch_assoc($result_total);
+$total_penjualan = $row_total['total_penjualan'];
+
+// Query untuk mengambil total pendapatan per bulan
+$query = "SELECT 
+        MONTH(created_at) AS bulan, 
+        SUM(total) AS pendapatan 
+    FROM tb_pesanan 
+    WHERE status = 'success' 
+    GROUP BY MONTH(created_at)
+    ORDER BY bulan ASC
+";
+$result = mysqli_query($conn, $query);
+
+// Menyimpan data dalam array
+$bulan = [];
+$pendapatan = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $bulan[] = $row['bulan'];
+    $pendapatan[] = $row['pendapatan'];
+}
+
+// Menyiapkan data dalam format JSON untuk chart.js
+$bulan_json = json_encode($bulan);
+$pendapatan_json = json_encode($pendapatan);
+
+
+?>
+
+
 <div class="container-fluid">
 
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-</div>
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    </div>
 
-<!-- Content Row -->
-<div class="row">
+    <!-- Content Row -->
+    <div class="row">
 
-    <!-- Card Example 1 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="font-size: 18px;">User Data</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 30px;">
-                                        <?php echo $jumlah_user; ?>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-user fa-2x text-gray-300"></i>
-                                </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Pendapatan Penjualan</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <?php echo "Rp " .  number_format($total_penjualan, 0, ',', '.'); ?>
                             </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
-
-                <!-- Card Example 2 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card border-left-warning shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="font-size: 18px;">Product Data</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 30px;">
-                                        <?php echo $jumlah_undangan; ?>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-folder fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card Example 3 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card border-left-danger shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1" style="font-size: 18px;">Gallery Data</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 30px;">
-                                        <?php echo $jumlah_undangan; ?>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-image fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mb-4">
-                    <div class="card border-left-success shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="font-size: 18px;">Order Data</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 30px;">
-                                        <?php echo $jumlah_gambar; ?>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-store fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mb-4">
-                    <div class="card border-left-success shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="font-size: 18px;">About Us</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size: 30px;">
-                                        <?php echo $jumlah_gambar; ?>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-store fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-
-            </div>
-            <div class="row">
-
-            <div class="col-lg-6 mb-4">
-
-                <!-- Illustrations -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                src="assets/img/undraw_posting_photo.svg" alt="...">
-                        </div>
-                        <p>Add some quality, svg illustrations to your project courtesy of <a
-                                target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                            constantly updated collection of beautiful svg images that you can use
-                            completely free and without attribution!</p>
-                        <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                            unDraw &rarr;</a>
-                    </div>
-                </div>
-
-            </div>
-
-        <!-- Content Column -->
-            <div class="col-lg-6 mb-4">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                        </div>
-                        <div class="card-body">
-                            <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                CSS bloat and poor page performance. Custom CSS classes are used to create
-                                custom components and custom utility classes.</p>
-                            <p class="mb-0">Before working with this theme, you should become familiar with the
-                                Bootstrap framework, especially the utility classes.</p>
-                        </div>
-                    </div>
             </div>
         </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Pesanan Pending</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <?php echo $jumlah_pending; ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Pesanan Delivery</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $jumlah_delivery; ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Pesanan Success</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $jumlah_success; ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-dark shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                                Jumlah Pesanan</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <?php echo $jumlah_pesanan; ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Jumlah Product
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                        <?php echo $jumlah_undangan; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-dark shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                                Jumlah Users</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $jumlah_user; ?></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Jumlah Gambar
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                        <?php echo $jumlah_gambar; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2">
+                        <canvas id="myPieChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-primary"></i> Direct
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Social
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-info"></i> Referral
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
-                     

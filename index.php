@@ -111,8 +111,8 @@
         <div class="section__container footer__container">
             <div class="footer__col">
                 <div class="logo footer__logo">
-                    <div>VR</div>
-                    <span>BaleeKun<br />Virtual Reality</span>
+                    <div>AR</div>
+                    <span>BaleeKun<br />Augmented Reality</span>
                 </div>
                 <p class="section__description">
                     Undangan ini bukan hanya tentang memberi tahu orang-orang mengenai acara Anda — ini adalah

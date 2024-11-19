@@ -17,8 +17,8 @@ $list_data_undangan = mysqli_query($conn, $query);
 
 <header class="header" id="home">
     <div class="section__container header__container">
-        <p class="section__subheader"> -BaleekunDigital- </p>
-        <h1>Undangan Digital<br />Dengan Teknologi VR</h1>
+        <p class="section__subheader"> -Undangan Digital Berteknologi AR- </p>
+        <h1>Inovasi Modern <br />untuk Momen Istimewa</h1>
         <a href="?page=product"> <button class="btn">Order Now</button></a>
 
     </div>
@@ -27,12 +27,12 @@ $list_data_undangan = mysqli_query($conn, $query);
 <section class="intro">
     <div class="section__container intro__container">
         <div class="intro__cotent">
-            <p class="section__subheader">INTRO VIDEO</p>
-            <h2 class="section__header">Virtual Reality Demo</h2>
+            <p class="section__subheader">INTRO</p>
+            <h2 class="section__header">Apa Itu Undangan Digital Berteknologi AR?</h2>
             <p class="section__description">
-                Undangan ini bukan hanya tentang memberi tahu orang-orang mengenai acara Anda — ini adalah tentang
-                memberikan mereka pengalaman yang tak terlupakan, di mana mereka bisa merasa seolah-olah sudah menjadi
-                bagian dari acara Anda sejak hari pertama.
+                Undangan digital AR adalah solusi inovatif yang menggabungkan desain undangan digital dengan fitur
+                interaktif berbasis teknologi AR. Saat tamu Anda memindai undangan menggunakan perangkat mereka, mereka
+                akan disuguhkan elemen-elemen visual yang hidup,
             </p>
         </div>
         <div class="intro__video">
@@ -43,7 +43,7 @@ $list_data_undangan = mysqli_query($conn, $query);
 
 <section class="room__container" id="room">
     <p class="section__subheader">PRODUCT</p>
-    <h2 class="section__header">Undangan Digital</h2>
+    <h2 class="section__header">Product Inovatif untuk Acara Anda</h2>
     <div class="room__grid">
         <?php 
         while ($row = mysqli_fetch_assoc($list_data_undangan)) {
@@ -71,55 +71,55 @@ $list_data_undangan = mysqli_query($conn, $query);
 </section>
 
 <section class="section__container feature__container" id="feature">
-    <p class="section__subheader">TUTORIAL</p>
-    <h2 class="section__header">Cara Pemesanan</h2>
+    <p class="section__subheader">REASON</p>
+    <h2 class="section__header">Mengapa Memilih Undangan Digital AR?</h2>
     <div class="feature__grid">
         <div class="feature__card">
             <span><i class="ri-thumb-up-line"></i></span>
-            <h4>Have High Rating</h4>
+            <h4>Kesan Eksklusif & Modern</h4>
             <p>
-                We take pride in curating a selection of hotels that consistently
-                receive high ratings and positive reviews.
+                Undangan AR meninggalkan kesan mendalam dan berbeda dari undangan konvensional, membuat momen Anda
+                lebih.
+                berkesan.
             </p>
         </div>
         <div class="feature__card">
             <span><i class="ri-time-line"></i></span>
-            <h4>Quite Hours</h4>
+            <h4>Ramah Lingkungan</h4>
             <p>
-                We understand that peace and uninterrupted rest are essential for a
-                rejuvenating experience.
+                Tidak ada lagi kertas terbuang! Undangan digital membantu Anda berkontribusi pada pelestarian
+                lingkungan.
             </p>
         </div>
         <div class="feature__card">
             <span><i class="ri-map-pin-line"></i></span>
-            <h4>Best Location</h4>
+            <h4>Kemudahan Akses</h4>
             <p>
-                At our hotel booking website, we take pride in offering
-                accommodations in the most prime and sought-after locations.
+                Tamu dapat langsung mengakses detail acara kapan saja, di mana saja, hanya dengan ponsel.
             </p>
         </div>
         <div class="feature__card">
             <span><i class="ri-close-circle-line"></i></span>
-            <h4>Free Cancellation</h4>
+            <h4>Personalisasi Tanpa Batas</h4>
             <p>
-                We understand that travel plans can change unexpectedly, which is
-                why we offer the flexibility of free cancellation.
+                Tambahkan elemen kreatif yang mencerminkan tema acara Anda, mulai dari musik latar hingga visualisasi
+                3D.
             </p>
         </div>
         <div class="feature__card">
             <span><i class="ri-wallet-line"></i></span>
-            <h4>Payment Options</h4>
+            <h4>Desain Interaktif & Animasi 3D</h4>
             <p>
-                Our hotel booking website offers a range of convenient payment
-                options to suit your preferences.
+                Undangan ini dilengkapi dengan elemen visual seperti animasi 3D, video, dan gambar interaktif yang
+                tampil saat tamu memindai undangan menggunakan smartphone.
             </p>
         </div>
         <div class="feature__card">
             <span><i class="ri-coupon-line"></i></span>
-            <h4>Special Offers</h4>
+            <h4> Kode QR Praktis</h4>
             <p>
-                Whether you're planning a romantic getaway, or a business trip, our
-                carefully curated special offers cater to all your needs.
+                Setiap undangan dilengkapi dengan kode QR unik yang bisa dibagikan melalui media sosial, email, atau
+                aplikasi pesan.
             </p>
         </div>
     </div>
@@ -130,15 +130,15 @@ $list_data_undangan = mysqli_query($conn, $query);
     <div class="section__container about__container">
         <div class="about__grid">
             <div class="about__image">
-                <img src="image/assets/gambar1.jpg" alt="about" />
+                <img src="image/assets/assets10.jpg" alt="about" />
             </div>
             <div class="about__card">
                 <span><i class="ri-user-line"></i></span>
-                <h4>Virtual Reality</h4>
+                <h4>Augmented Reality</h4>
                 <p>Sambut Momen Spesialmu dengan Undangan Digital.</p>
             </div>
             <div class="about__image">
-                <img src="image/assets/gambar2.jpg" alt="about" />
+                <img src="image/assets/assets11.jpg" alt="about" />
             </div>
             <div class="about__card">
                 <span><i class="ri-calendar-check-line"></i></span>
@@ -150,10 +150,10 @@ $list_data_undangan = mysqli_query($conn, $query);
             <p class="section__subheader">ABOUT US</p>
             <h2 class="section__header">Baleekun Digital</h2>
             <p class="section__description">
-                Undangan Digital VR adalah cara inovatif untuk mengirimkan undangan menggunakan teknologi Virtual
-                Reality. Dengan hanya menggunakan Smartphone, tamu dapat merasakan pengalaman undangan yang interaktif,
-                memungkinkan mereka untuk menjelajahi tema acara secara virtual dan mendapatkan informasi secara lebih
-                menarik dan imersif.
+                Dengan teknologi AR, kami membantu Anda menciptakan undangan yang bukan hanya pemberitahuan, tetapi juga
+                kenangan. Buat setiap momen istimewa Anda terasa lebih hidup dan bermakna.
+                <br>
+                📩 Segera hubungi kami dan mulailah perjalanan Anda menuju undangan yang tak terlupakan!
             </p>
             <a href="index.php?page=aboutus"><button class="btn">See More</button></a>
         </div>
@@ -194,9 +194,9 @@ $list_data_undangan = mysqli_query($conn, $query);
             </div>
         </div>
         <div class="menu__images">
-            <img src="image/assets/gambar1.jpg" alt="menu" />
-            <img src="image/assets/gambar2.jpg" alt="menu" />
-            <img src="image/assets/gambar4.jpg" alt="menu" />
+            <img src="image/assets/assets23.jpg" alt="menu" />
+            <img src="image/assets/assets24.jpg" alt="menu" />
+            <img src="image/assets/assets25.jpg" alt="menu" />
         </div>
 
     </div>

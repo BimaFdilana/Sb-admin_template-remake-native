@@ -21,7 +21,7 @@ session_start();
                 <!-- Card Body -->
                 <div class="p-5">
                     <div class="text-center">
-                        <h1 class="font-weight-bold text-gray-900 mb-4">Login</h1>
+                        <h1 class="font-weight-bold text-gray-900 mb-4">Register</h1>
                         <h3 class="h6 text-gray-500 mb-1">Enter Find Your Product</h3>
                     </div>
                     <hr>
@@ -61,7 +61,7 @@ session_start();
                             </div>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-warning btn-user btn-block">Login</button>
+                            <button type="submit" class="btn btn-warning btn-user btn-block">Register</button>
                         </div>
                     </form>
                     <div class="text-center mt-3">

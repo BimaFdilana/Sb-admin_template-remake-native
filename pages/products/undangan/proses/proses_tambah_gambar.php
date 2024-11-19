@@ -3,7 +3,7 @@ include "../../../../conf/db_conn.php";
 
 const TARGET_DIR = "../../../../image/product_image/";
 const ALLOWED_EXT = array('png', 'jpg', 'jpeg', 'gif');
-const MAX_FILE_SIZE = 512000;
+const MAX_FILE_SIZE = 2097152;
 
 function checkImage($image) {
     $filename = $_FILES[$image]['name'];
