@@ -2,18 +2,19 @@
 require("conf/db_conn.php");
 $query = "SELECT * FROM tb_image";
 $list_gambar = mysqli_query($conn, $query);
-?> 
- 
- 
-<div class="container-fluid">
+?>
 
-<!-- Page Heading -->
-<div class="row mb-2">
-  <div class="col-sm-12">
-    <h1 class="h3 mb-2 text-gray-800">Product <i class="fas fa-angle-right"></i> List Data Gambar</h1>
-  </div>
-</div>
-<p class="mb-4">The list of Data Gambar Product is displayed below. Use the search or filter options to find the account you're looking for. For more details, click on the relevant account. official DataTables documentation</p>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row mb-2">
+        <div class="col-sm-12">
+            <h1 class="h3 mb-2 text-gray-800">Product <i class="fas fa-angle-right"></i> List Data Gambar</h1>
+        </div>
+    </div>
+    <p class="mb-4">The list of Data Gambar Product is displayed below. Use the search or filter options to find the
+        account you're looking for. For more details, click on the relevant account. official DataTables documentation
+    </p>
+
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">List Data Gambar</h6>
@@ -37,17 +38,32 @@ $list_gambar = mysqli_query($conn, $query);
                             <td><?=$row['nama_image'];?></td>
                             <td style="text-align: center;">
                                 <?php
-                                    $gambar = $row["image"];
-                                    if ($gambar == null) {
-                                        echo "<img src='image/avatar/default-150x150.png' style='width: 80px;'/>";
+                                    // Memisahkan string gambar berdasarkan koma
+                                    $gambar_array = explode(',', $row["image"]); // Mengubah string menjadi array
+
+                                    if ($gambar_array) {
+                                        // Menampilkan semua gambar yang ada dalam array
+                                        foreach ($gambar_array as $gambar) {
+                                            // Memastikan gambar ditemukan dan jalur file benar
+                                            $image_path = 'image/product_image/' . $gambar;
+                                            if (file_exists($image_path)) {
+                                                echo "<img src='$image_path' style='width: 80px; margin-right: 10px;' />";
+                                            } else {
+                                                // Menampilkan gambar default jika file tidak ditemukan
+                                                echo "<img src='image/avatar/default-150x150.png' style='width: 80px; margin-right: 10px;' />";
+                                            }
+                                        }
                                     } else {
-                                        echo "<img src='image/product_image/$gambar' style='width: 80px;'/>";
+                                        // Jika tidak ada gambar, tampilkan gambar default
+                                        echo "<img src='image/avatar/default-150x150.png' style='width: 80px;'/>";
                                     }
                                 ?>
                             </td>
                             <td style="text-align: center; white-space: nowrap;">
                                 <!-- Delete User -->
-                                <a href="pages/products/undangan/proses/proses_hapus_gambar.php?id_image=<?=$row['id_image'];?>" class="btn btn-danger btn-sm" role="button" title="Hapus Gambar" onclick="return confirm('Apakah anda yakin?')">
+                                <a href="pages/products/undangan/proses/proses_hapus_gambar.php?id_image=<?=$row['id_image'];?>"
+                                    class="btn btn-danger btn-sm" role="button" title="Hapus Gambar"
+                                    onclick="return confirm('Apakah anda yakin?')">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
@@ -59,4 +75,3 @@ $list_gambar = mysqli_query($conn, $query);
         </div>
     </div>
 </div>
-<!-- /.container-fluid -->

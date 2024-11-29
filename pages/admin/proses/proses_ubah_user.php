@@ -7,27 +7,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $no_hp = $_POST['no_hp'];
     $role = $_POST['role'];
-    $ubah_password = isset($_POST['ubah_password']) && $_POST['ubah_password'] ? true : false;
+    $password = isset($_POST['password']) && !empty($_POST['password']) ? md5($_POST['password']) : null;
 
-    if ($ubah_password) {
-        $password = $_POST['password'];
-        $password = md5($password);
-        $query = "UPDATE tb_user SET
-                  username = '$username',
-                  email = '$email',
-                  no_hp = '$no_hp',
-                  role = '$role',
-                  password = '$password'
-                  WHERE id='$id'";
-    } else {
-        $query = "UPDATE tb_user SET
-                  username = '$username',
-                  email = '$email'
-                  no_hp = '$no_hp',
-                  role = '$role'
-                  WHERE id='$id'";
+    // Mulai query dasar
+    $query = "UPDATE tb_user SET
+              username = '$username',
+              email = '$email',
+              no_hp = '$no_hp',
+              role = '$role'";
+
+    // Jika password diisi, tambahkan ke query
+    if ($password !== null) {
+        $query .= ", password = '$password'";
     }
 
+    // Tambahkan kondisi WHERE
+    $query .= " WHERE id = '$id'";
+
+    // Eksekusi query
     $result = mysqli_query($conn, $query);
 
     if ($result) {

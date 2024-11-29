@@ -13,6 +13,9 @@ if(isset($_GET['page'])) {
         case 'listUndangan':
             include 'pages/products/undangan/pages/list_data_undangan.php';
             break;
+        case 'UbahUndangan':
+            include 'pages/products/undangan/pages/ubah_undangan.php';
+            break;
         case 'ubahPesanan':
             include 'pages/products/pesanan/pages/ubah_pesanan.php';
             break;

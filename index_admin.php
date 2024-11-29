@@ -295,6 +295,21 @@ $kelola_product = array_merge($listUndangan_active, $listPesanan_active, $tambah
         </div>
     </div>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.querySelector('.custom-file-input');
+        const fileLabel = document.querySelector('.custom-file-label');
+
+        fileInput.addEventListener('change', function() {
+            const fileName = Array.from(fileInput.files)
+                .map(file => file.name)
+                .join(', '); // Menggabungkan nama file jika ada lebih dari satu
+            fileLabel.textContent = fileName ||
+                'Pilih file...'; // Menampilkan nama file atau default jika kosong
+        });
+    });
+    </script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

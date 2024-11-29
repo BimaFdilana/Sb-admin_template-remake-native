@@ -1,12 +1,19 @@
 <?php
 require("conf/db_conn.php");
-$query = "SELECT * FROM tb_undangan";
+
+// Query untuk mengambil data undangan dan gambar terkait menggunakan JOIN
+$query = "
+    SELECT tb_undangan.id_undangan, tb_undangan.nama_undangan, tb_undangan.jumlah_undangan,
+           tb_undangan.harga_undangan, tb_undangan.jenis_undangan, tb_undangan.deskripsi_undangan,
+           tb_undangan.detail_undangan, tb_undangan.id_image, tb_image.image
+    FROM tb_undangan
+    LEFT JOIN tb_image ON tb_undangan.id_image = tb_image.id_image
+";
+
 $list_data_undangan = mysqli_query($conn, $query);
 ?>
 
-
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <div class="row mb-2">
         <div class="col-sm-12">
@@ -32,6 +39,7 @@ $list_data_undangan = mysqli_query($conn, $query);
                             <th>Jenis Undangan</th>
                             <th>Deskripsi Undangan</th>
                             <th>Detail Undangan</th>
+                            <th>Gambar</th>
                             <th style="text-align: center">Aksi</th>
                         </tr>
                     </thead>
@@ -46,8 +54,42 @@ $list_data_undangan = mysqli_query($conn, $query);
                             <td><?=$row['jenis_undangan'];?></td>
                             <td><?=$row['deskripsi_undangan'];?></td>
                             <td><?=$row['detail_undangan'];?></td>
+
+                            <td style="text-align: center;">
+                                <?php
+                                    // Memeriksa apakah kolom image bernilai NULL atau kosong
+                                    if (empty($row["image"])) {
+                                        // Jika NULL atau kosong, tampilkan pesan
+                                        echo "<p>Gambar tidak tersedia</p>";
+                                    } else {
+                                        // Memisahkan string gambar berdasarkan koma
+                                        $gambar_array = explode(',', $row["image"]); // Mengubah string menjadi array
+
+                                        // Menampilkan semua gambar yang ada dalam array
+                                        $is_image_found = false; // Untuk mengecek apakah ada gambar yang ditemukan
+                                        foreach ($gambar_array as $gambar) {
+                                            // Memastikan gambar ditemukan dan jalur file benar
+                                            $image_path = 'image/product_image/' . $gambar;
+                                            if (file_exists($image_path)) {
+                                                echo "<img src='$image_path' style='width: 80px; margin-right: 10px;' />";
+                                                $is_image_found = true; // Set gambar ditemukan
+                                            }
+                                        }
+
+                                        // Jika tidak ada gambar ditemukan di array, tampilkan pesan
+                                        if (!$is_image_found) {
+                                            echo "<p>Gambar tidak tersedia</p>";
+                                        }
+                                    }
+                                ?>
+                            </td>
+
                             <td style="text-align: center; white-space: nowrap;">
-                                <!-- Delete User -->
+                                <a href="index_admin.php?page=UbahUndangan&id=<?= $row['id_undangan']; ?>"
+                                    class="btn btn-success btn-sm" role="button" title="Ubah Data User">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
                                 <a href="pages/products/undangan/proses/proses_hapus_undangan.php?id_undangan=<?=$row['id_undangan'];?>"
                                     class="btn btn-danger btn-sm" role="button" title="Hapus Data "
                                     onclick="return confirm('Apakah anda yakin?')">
