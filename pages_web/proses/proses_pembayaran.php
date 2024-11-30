@@ -87,7 +87,7 @@ if (isset($_POST['user_id'], $_POST['total'], $_POST['items'])) {
         } else {
             echo "<script>
                 alert('Nomor HP atau Username tidak ditemukan dalam session.');
-                window.location.href = '../alerlt.php'; // Arahkan ke halaman lain jika session tidak ada
+                window.location.href = '../../index.php'; // Arahkan ke halaman lain jika session tidak ada
               </script>";
         }
         exit;

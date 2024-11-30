@@ -31,32 +31,25 @@ $daftar_pesanan = mysqli_query($conn, $query);
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">List Orders</h6>
-            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editOrderModal"
-                data-id="<?= $row['order_id']; ?>" data-status="<?= $row['order_status']; ?>"
-                data-nomor-resi="<?= $row['order_resi']; ?>">
-                <i class="fas fa-edit"> Update Resi & Proses Pengiriman</i>
-            </button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>OrderID</th>
                             <th>Username</th>
                             <th>Total</th>
                             <th>Items</th>
+                            <th>CreatedAt</th>
                             <th>Status</th>
                             <th>Nomor Resi</th>
-                            <th>Created At</th>
+
                             <th style="text-align: center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php while ($row = mysqli_fetch_assoc($daftar_pesanan)) : ?>
                         <tr>
-                            <!-- Order ID -->
-                            <td style="text-align: center;"><strong><?= $row['order_id']; ?></strong></td>
                             <!-- Nama Baru -->
                             <td><?= $row['user_username']; ?></td>
                             <td>Rp <?= number_format($row['order_total'], 0, ',', '.'); ?></td>
@@ -65,11 +58,10 @@ $daftar_pesanan = mysqli_query($conn, $query);
                                     $items = json_decode($row['order_items'], true);
                                     if ($items && is_array($items)) {
                                         echo "<table class='table table-sm' style='margin: 0;'>";
-                                        echo "<tr><th>Nama</th><th>Harga</th><th>Jumlah</th></tr>";
+                                        echo "<tr><th>Nama</th><th>Jumlah</th></tr>";
                                         foreach ($items as $item) {
                                             echo "<tr>";
                                             echo "<td>" . htmlspecialchars($item['name']) . "</td>";
-                                            echo "<td>Rp " . number_format($item['price'], 0, ',', '.') . "</td>";
                                             echo "<td>" . $item['quantity'] . "</td>";
                                             echo "</tr>";
                                         }
@@ -79,17 +71,34 @@ $daftar_pesanan = mysqli_query($conn, $query);
                                     }
                                 ?>
                             </td>
-                            <td><?= $row['order_status']; ?></td>
-                            <td><?= $row['order_resi']; ?></td>
                             <td><?= $row['order_created_at']; ?></td>
-                            <td style="text-align: center; white-space: nowrap;">
-                                <!-- Delete Order -->
-                                <a href="pages/products/pesanan/proses/proses_hapus_pesanan.php?id=<?= $row['order_id']; ?>"
-                                    class="btn btn-danger btn-sm" role="button" title="Delete Order"
-                                    onclick="return confirm('Are you sure you want to delete this order?')">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </td>
+                            <!-- Status dan Nomor Resi sebagai input -->
+                            <form action="pages/products/pesanan/proses/proses_ubah_pesanan.php" method="POST">
+                                <td>
+                                    <select name="status" class="form-control" style="width: 150px;">
+                                        <option value="Pending"
+                                            <?= ($row['order_status'] == 'Pending') ? 'selected' : ''; ?>>Pending
+                                        </option>
+                                        <option value="Delivery"
+                                            <?= ($row['order_status'] == 'Delivery') ? 'selected' : ''; ?>>Delivery
+                                        </option>
+                                        <option value="Success"
+                                            <?= ($row['order_status'] == 'Success') ? 'selected' : ''; ?>>Success
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input style="width: 150px;" type="text" name="nomor_resi" class="form-control"
+                                        value="<?= $row['order_resi']; ?>" placeholder="Enter Tracking Number" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="id" value="<?= $row['order_id']; ?>">
+                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                    <a href="pages/products/pesanan/proses/proses_hapus_pesanan.php?id=<?= $row['order_id']; ?>"
+                                        class="btn btn-danger btn-sm" role="button" title="Delete Order"
+                                        onclick="return confirm('Are you sure you want to delete this order?')">Deleted</a>
+                                </td>
+                            </form>
                         </tr>
                         <?php endwhile; ?>
                     </tbody>
@@ -98,58 +107,3 @@ $daftar_pesanan = mysqli_query($conn, $query);
         </div>
     </div>
 </div>
-
-<!-- Modal untuk Edit Order -->
-<div class="modal fade" id="editOrderModal" tabindex="-1" role="dialog" aria-labelledby="editOrderModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form id="editOrderForm" method="post" action="pages/products/pesanan/proses/proses_ubah_pesanan.php">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editOrderModalLabel">Edit Order</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="OrderId">OrderID</label>
-                        <input type="text" name="id" class="form-control" id="orderId" placeholder="Masukan OrderID">
-                    </div>
-                    <div class="form-group">
-                        <label for="orderStatus">Status</label>
-                        <select name="status" id="orderStatus" class="form-control">
-                            <option value="Pending">Pending</option>
-                            <option value="Delivery">Delivery</option>
-                            <option value="Success">Success</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="orderResi">Nomor Resi</label>
-                        <input type="text" name="nomor_resi" id="orderResi" class="form-control"
-                            placeholder="Enter Tracking Number">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
-<script>
-// Menangani data untuk modal
-$('#editOrderModal').on('show.bs.modal', function(event) {
-    var button = $(event.relatedTarget);
-    var orderId = button.data('id');
-    var orderStatus = button.data('status');
-    var orderResi = button.data('nomor-resi');
-
-    var modal = $(this);
-    modal.find('#orderId').val(orderId);
-    modal.find('#orderStatus').val(orderStatus);
-    modal.find('#orderResi').val(orderResi);
-});
-</script>

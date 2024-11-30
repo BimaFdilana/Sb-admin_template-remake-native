@@ -50,22 +50,29 @@ $list_data_undangan = mysqli_query($conn, $query);
             $gambar = $row["image"];
             $id_undangan = $row["id_undangan"];
         ?>
-        <a href="index.php?page=product" class="room__card">
-            <div class="room__card__image">
-                <?php
-                // Menampilkan gambar produk
-                if ($gambar == null) {
-                    echo "<img src='image/avatar/default-150x150.png'/>";
-                } else {
-                    echo "<img src='image/product_image/$gambar' />";
-                }
-                ?>
-            </div>
+        <div class="room__card">
+            <a href="index.php?page=product">
+                <div class="room__card__image">
+                    <?php 
+                        $gambar = $row["image"]; // Ambil kolom 'image'
+                        $gambar_array = explode(',', $gambar); // Pisahkan gambar menjadi array
+
+                        if (!empty($gambar_array)) {
+                            $gambar_random = $gambar_array[array_rand($gambar_array)]; // Pilih gambar secara acak
+                            echo "<img src='image/product_image/$gambar_random' />";
+                        } else {
+                            // Jika tidak ada gambar, tampilkan gambar default
+                            echo "<img src='image/avatar/default-150x150.png'/>";
+                        }
+                    ?>
+                </div>
+            </a>
+
             <div class="room__card__details">
                 <h4><?php echo htmlspecialchars($row['nama_undangan']); ?></h4>
                 <h3><?php echo format_currency($row['harga_undangan']); ?></h3>
             </div>
-        </a>
+        </div>
         <?php } ?>
     </div>
 </section>

@@ -343,6 +343,7 @@ nav {
 }
 
 .room__card__details h4 {
+  text-decoration: none;
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
   font-weight: 800;
@@ -355,6 +356,7 @@ nav {
 }
 
 .room__card__details h3 {
+  text-decoration: none;
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--secondary-color);
