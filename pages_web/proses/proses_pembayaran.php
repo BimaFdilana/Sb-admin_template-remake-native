@@ -30,6 +30,8 @@ if (isset($_POST['user_id'], $_POST['total'], $_POST['items'])) {
             ':items' => $items,
         ]);
 
+        $_SESSION['order_status'] = 'pending';
+
         // Ambil nomor HP dan username dari session (misalnya setelah login)
         $no_hp = isset($_SESSION['no_hp']) ? $_SESSION['no_hp'] : ''; // Pastikan session no_hp ada
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Pastikan session username ada

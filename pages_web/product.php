@@ -8,7 +8,7 @@ if (!isset($_SESSION['cart'])) {
 }
 
 // Fungsi untuk menambahkan item ke keranjang
-function addToCart($item_id, $name, $price, $quantity = 1) {
+function addToCart($item_id, $name, $price, $image, $quantity = 1) {
     $item_found = false;
     foreach ($_SESSION['cart'] as &$item) {
         if ($item['id'] === $item_id) {
@@ -23,6 +23,7 @@ function addToCart($item_id, $name, $price, $quantity = 1) {
             'id' => $item_id,
             'name' => $name,
             'price' => $price,
+            'image' => $image,
             'quantity' => $quantity
         ];
     }
@@ -32,9 +33,13 @@ if (isset($_POST['add_to_cart'])) {
     $id_undangan = $_POST['id_undangan'];
     $nama_undangan = $_POST['nama_undangan'];
     $harga_undangan = $_POST['harga_undangan'];
+
+    $gambar = $_POST['image']; // Asumsikan gambar sudah ada di form
+    $gambar_array = explode(',', $gambar); 
+    $gambar_random = !empty($gambar_array) ? $gambar_array[array_rand($gambar_array)] : 'default.png';
     
     // Tambahkan ke keranjang
-    addToCart($id_undangan, $nama_undangan, $harga_undangan);
+    addToCart($id_undangan, $nama_undangan, $harga_undangan, $gambar_random);
     
     // Simpan pesan keberhasilan dalam sesi
     $_SESSION['cart_success_message'] = "Produk berhasil ditambahkan ke keranjang!";
@@ -95,6 +100,40 @@ alert("<?= $_SESSION['cart_success_message']; ?>");
     background-color: #A6AEBF;
     /* Mengubah warna latar belakang saat klik */
 }
+
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+    /* Sesuaikan tinggi secara proporsional */
+    object-fit: cover;
+    /* Isi container tanpa distorsi */
+}
+
+.carousel-item {
+    transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+}
+
+.text-dark {
+    word-wrap: break-word;
+    /* Membungkus teks yang terlalu panjang */
+    word-break: break-word;
+    /* Memecah kata yang terlalu panjang */
+    white-space: normal;
+    /* Pastikan teks dapat dibungkus */
+}
+
+.container {
+    padding: 0 15px;
+    /* Pastikan ada padding di sisi */
+}
+
+.col-12,
+.col-6 {
+    word-wrap: break-word;
+    /* Terapkan pembungkusan kata pada kolom */
+    overflow-wrap: break-word;
+    /* Sama seperti word-wrap, untuk mendukung browser lainnya */
+}
 </style>
 
 <section class="room__container" id="room">
@@ -105,15 +144,21 @@ alert("<?= $_SESSION['cart_success_message']; ?>");
             <div class="room__card__image">
                 <a href="#" data-toggle="modal" data-target="#exampleModal-<?= $row["id_undangan"]; ?>">
                     <?php 
-                        $gambar = $row["image"];
-                        if ($gambar == null) {
-                            echo "<img src='image/avatar/default-150x150.png'/>";
+                        $gambar = $row["image"]; // Ambil kolom 'image'
+                        $gambar_array = explode(',', $gambar); // Pisahkan gambar menjadi array
+
+                        if (!empty($gambar_array)) {
+                            $gambar_random = $gambar_array[array_rand($gambar_array)]; // Pilih gambar secara acak
+                            echo "<img src='image/product_image/$gambar_random' />";
                         } else {
-                            echo "<img src='image/product_image/$gambar' />";
+                            // Jika tidak ada gambar, tampilkan gambar default
+                            echo "<img src='image/avatar/default-150x150.png'/>";
                         }
                     ?>
                 </a>
             </div>
+
+
             <div class="room__card__details">
                 <div>
                     <h4><?= $row["nama_undangan"]; ?></h4>
@@ -124,6 +169,7 @@ alert("<?= $_SESSION['cart_success_message']; ?>");
                     <input type="hidden" name="id_undangan" value="<?= $row["id_undangan"]; ?>">
                     <input type="hidden" name="nama_undangan" value="<?= $row["nama_undangan"]; ?>">
                     <input type="hidden" name="harga_undangan" value="<?= $row["harga_undangan"]; ?>">
+                    <input type="hidden" name="image" value="<?= $row['image']; ?>">
                     <div class="row d-flex justify-content-center" style="gap: 15px;">
                         <!-- Tombol Beli dengan ukuran khusus -->
                         <button type="submit" name="add_to_cart" class="custom-btn">
@@ -151,13 +197,62 @@ alert("<?= $_SESSION['cart_success_message']; ?>");
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" style="color: black;" id="exampleModalLongTitle">Detail Product</h5>
+                <h5 class="modal-title" style="color: black;" id="exampleModalLongTitle">Detail Produk</h5>
             </div>
             <div class="modal-body">
                 <div class="col-12 mb-3 text-center">
-                    <?php $gambar = $row["image"]; ?>
-                    <img src="<?= $gambar ? "image/product_image/$gambar" : 'image/avatar/default-150x150.png'; ?>"
-                        class="img-fluid rounded mb-2" alt="Gambar Produk" />
+                    <?php 
+                    $gambar = $row["image"]; 
+                    $array_gambar = $gambar ? explode(',', $gambar) : ['default.png'];
+                    ?>
+
+                    <!-- Carousel -->
+                    <div id="carouselExampleIndicators-<?= $row['id_undangan']; ?>" class="carousel slide"
+                        data-bs-ride="carousel" data-bs-interval="3000">
+                        <!-- Carousel Indicators -->
+                        <div class="carousel-indicators">
+                            <?php 
+                                $gambar = $row["image"]; // Ambil data kolom 'image'
+                                $gambar_array = explode(',', $gambar); // Pisahkan menjadi array
+                                foreach ($gambar_array as $index => $img) {
+                                    $active = $index === 0 ? 'class="active" aria-current="true"' : '';
+                                    echo "<button type='button' 
+                                                data-bs-target='#carouselExampleIndicators-{$row['id_undangan']}' 
+                                                data-bs-slide-to='{$index}' 
+                                                {$active} 
+                                                aria-label='Slide " . ($index + 1) . "'></button>";
+                                                    }
+                            ?>
+                        </div>
+
+                        <!-- Carousel Inner -->
+                        <div class="carousel-inner">
+                            <?php 
+                                foreach ($gambar_array as $index => $img) {
+                                    $active = $index === 0 ? 'active' : ''; // Tandai slide pertama sebagai aktif
+                                    echo "<div class='carousel-item {$active}'>
+                                            <img src='image/product_image/{$img}' class='d-block w-100' alt='Slide {$index}'>
+                                        </div>";
+                                }
+                            ?>
+                        </div>
+
+                        <!-- Carousel Controls -->
+                        <button class="carousel-control-prev" type="button"
+                            data-bs-target="#carouselExampleIndicators-<?= $row['id_undangan']; ?>"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                            data-bs-target="#carouselExampleIndicators-<?= $row['id_undangan']; ?>"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+
                 </div>
 
                 <!-- Nama Undangan -->
@@ -166,10 +261,11 @@ alert("<?= $_SESSION['cart_success_message']; ?>");
                 </h1>
 
                 <!-- Harga Undangan -->
-                <h3 class="text-center" style=" color:#4a4a4a;">
+                <h3 class="text-center" style="color:#4a4a4a;">
                     <?= "Rp " . number_format($row["harga_undangan"], 0, ',', '.'); ?> /Pcs
                 </h3>
                 <hr><br>
+
                 <!-- Detail Informasi -->
                 <div class="container mt-3">
                     <div class="row">
@@ -195,10 +291,12 @@ alert("<?= $_SESSION['cart_success_message']; ?>");
                     <div class="row">
                         <!-- Deskripsi Undangan -->
                         <div class="col-12 text-dark">
-                            <strong>Deskripsi:</strong><br> <?= $row["deskripsi_undangan"]; ?>
+                            <strong>Deskripsi:</strong><br>
+                            <?= $row["deskripsi_undangan"]; ?>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="modal-footer">
@@ -208,5 +306,6 @@ alert("<?= $_SESSION['cart_success_message']; ?>");
     </div>
 </div>
 <?php endforeach; ?>
+
 
 </section>

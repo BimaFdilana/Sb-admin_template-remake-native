@@ -98,12 +98,13 @@ session_start();
                     </thead>
                     <tbody>
                         <?php 
-            $total = 0;
-            foreach ($_SESSION['cart'] as $item): 
-                $item_total = $item['price'] * $item['quantity'];
-                $total += $item_total;
-            ?>
+                        $total = 0;
+                        foreach ($_SESSION['cart'] as $item): 
+                            $item_total = $item['price'] * $item['quantity'];
+                            $total += $item_total;
+                        ?>
                         <tr>
+                            <!-- Gambar Produk -->
                             <td><?= htmlspecialchars($item['name']); ?></td>
                             <td>Rp <?= number_format($item['price'], 0, ',', '.'); ?></td>
                             <td>
@@ -124,7 +125,6 @@ session_start();
                                             data-item-id="<?= $item['id']; ?>">
                                     </form>
 
-
                                     <!-- Tombol Tambah -->
                                     <form method="POST" style="display: inline;">
                                         <input type="hidden" name="update_item" value="<?= $item['id']; ?>">
@@ -134,7 +134,6 @@ session_start();
                                     </form>
                                 </div>
                             </td>
-
                             <td>
                                 <!-- Hapus item dari keranjang -->
                                 <form method="POST">
@@ -165,10 +164,57 @@ session_start();
             </div>
 
             <div class="about__image">
-                <img src="image/assets/gambar4.jpg" alt="about" />
+                <!-- Carousel for product images -->
+                <?php if (!empty($_SESSION['cart'])): ?>
+                <?php 
+            // Ambil gambar produk pertama
+            $gambar = $_SESSION['cart'][0]['image']; 
+            $gambar_array = explode(',', $gambar); // Pisahkan gambar jika ada lebih dari satu
+        ?>
+
+                <?php if (!empty($gambar_array)): ?>
+                <!-- Bootstrap Carousel -->
+                <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php 
+                        $isActive = true; // Flag untuk slide pertama
+                        foreach ($gambar_array as $key => $gambar_item): 
+                    ?>
+                        <div class="carousel-item <?php echo $isActive ? 'active' : ''; ?>">
+                            <img src="image/product_image/<?= $gambar_item; ?>" class="d-block w-100"
+                                alt="Product Image" style="height: 200px; object-fit: cover;">
+                        </div>
+                        <?php $isActive = false; // Set flag ke false setelah slide pertama ?>
+                        <?php endforeach; ?>
+                    </div>
+                    <!-- Kontrol Navigasi Carousel -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <?php else: ?>
+                <!-- Jika tidak ada gambar, tampilkan gambar default -->
+                <img src="image/avatar/default.png" alt="Default Image" class="d-block w-100"
+                    style="height: 200px; object-fit: cover;">
+                <?php endif; ?>
+
+                <?php else: ?>
+                <!-- Jika keranjang kosong, tampilkan gambar default -->
+                <img src="image/avatar/default.png" alt="Default Image" class="d-block w-100"
+                    style="height: 200px; object-fit: cover;">
+                <?php endif; ?>
             </div>
+
         </div>
     </section>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">

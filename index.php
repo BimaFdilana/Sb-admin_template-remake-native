@@ -1,6 +1,13 @@
 <?php
 
     session_start();
+
+    if (isset($_GET['clear_session']) && $_GET['clear_session'] == 'true') {
+    unset($_SESSION['order_status']); // Hapus session order_status
+    header("Location: ?page=history"); // Redirect ke halaman history setelah menghapus session
+    exit;
+}
+    $order_status = isset($_SESSION['order_status']) ? $_SESSION['order_status'] : null;
     $cart_item_count = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 ?>
 
@@ -16,6 +23,11 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <title>BaleeKun-Digital</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -36,14 +48,24 @@
                 <li><a href="?page=aboutus">AboutUs</a></li>
 
                 <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
-                <li><a href="?page=history"><i class="ri-notification-3-fill" style="font-size: 30px;"></i></a></li>
+                <li style="position: relative;">
+                    <a href="?page=history&clear_session=true">
+                        <i class="ri-notification-3-fill" style="font-size: 30px;">
+                            <?php if ($order_status === 'pending'): ?>
+                            <!-- Menambahkan badge dengan posisi absolute di atas ikon -->
+                            <span class="badge bg-danger"
+                                style="position: absolute; top: -5px; right: -10px; font-size: 12px; padding: 3px 7px;">1</span>
+                            <?php endif; ?>
+                        </i>
+                    </a>
+                </li>
                 <li>
                     <a href="?page=cart" style="position: relative;">
                         <i class="ri-shopping-cart-fill" style="font-size: 30px;"></i>
                         <!-- Tampilkan badge jumlah item jika ada item di keranjang -->
                         <?php if ($cart_item_count > 0): ?>
                         <span class="badge bg-danger"
-                            style="position: absolute; top: -5px; right: -10px; font-size: 12px; padding: 3px 7px;">
+                            style="position: absolute; top: -20px; right: -10px; font-size: 12px; padding: 3px 7px;">
                             <?= $cart_item_count; ?>
                         </span>
                         <?php endif; ?>

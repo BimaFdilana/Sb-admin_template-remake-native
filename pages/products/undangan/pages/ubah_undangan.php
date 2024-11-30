@@ -88,7 +88,6 @@ $daftar_image = mysqli_query($conn, $query_images);
                 </div>
 
                 <div class="row">
-
                     <div class="col-md-3">
                         <div class="form-group">
                             <?php while($image = mysqli_fetch_assoc($daftar_image)): ?>
@@ -97,9 +96,7 @@ $daftar_image = mysqli_query($conn, $query_images);
                                 id="id_image">
                                 <!-- Opsi default -->
                                 <option value="">Pilih Gambar...</option>
-
                                 <!-- Loop untuk menampilkan daftar gambar -->
-
                                 <option value="<?= $image['id_image']; ?>"
                                     <?= $image['id_image'] == $row['id_image'] ? 'selected' : '' ?>>
                                     <?= $image['nama_image']; ?>
