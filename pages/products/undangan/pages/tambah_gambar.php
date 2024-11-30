@@ -27,6 +27,8 @@
                         <input type="file" class="custom-file-input" id="image" name="image[]" multiple required>
                         <label class="custom-file-label" for="image">Pilih file...</label>
                     </div>
+                    <!-- Tempat untuk menampilkan gambar pratinjau -->
+                    <div id="imagePreview" class="mt-2"></div>
                 </div>
             </div>
 
@@ -36,3 +38,36 @@
         </form>
     </div>
 </div>
+
+<!-- JavaScript untuk menampilkan nama file dan gambar pratinjau -->
+<script>
+// Event listener untuk menangani perubahan input file
+document.getElementById('image').addEventListener('change', function(event) {
+    var files = event.target.files; // Mengambil file yang dipilih
+    var label = document.querySelector('.custom-file-label'); // Label file
+    var previewContainer = document.getElementById('imagePreview'); // Tempat pratinjau gambar
+
+    // Menampilkan nama file di label
+    label.textContent = files.length > 1 ? files.length + " files selected" : files[0].name;
+
+    // Clear preview sebelumnya
+    previewContainer.innerHTML = '';
+
+    // Menampilkan pratinjau gambar jika ada gambar yang dipilih
+    if (files.length > 0) {
+        Array.from(files).forEach(function(file) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '100px'; // Set ukuran pratinjau gambar
+                img.style.marginRight = '10px';
+                previewContainer.appendChild(img);
+            };
+
+            reader.readAsDataURL(file); // Membaca file gambar sebagai data URL
+        });
+    }
+});
+</script>
